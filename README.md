@@ -1,388 +1,369 @@
-# app
+# news-pipelines
 
-`app` 是一个基于 `uv` 管理的 Scrapy 爬虫工程模板。它面向“多站点、可续跑、可观测、可入库”的采集任务，不是单个临时爬虫脚本。
+`news-pipelines` 是一套基于 Scrapy 的多站点新闻采集程序，覆盖管道运营商、能源与工业技术、政府与政策机构等站点。Python `>=3.12`，依赖由 `uv` 锁定。统一入口是 `run_spider.py`：它发现 `app/spiders/` 下的扁平站点 spider，按需经过 pipe-sight 的数据源门控，再以子进程执行 `scrapy crawl`。
 
-项目的核心思想是：`run_spider.py` 作为统一运行入口维护 spider 运行清单；Scrapy 负责抓取调度；项目内的 runtime、pipeline、monitor、tools 模块分别承担读取配置、运行调度、字段清洗、去重入库、质量监控和开发辅助。
+它是 [pipe-sight](https://github.com/liuxu6014/pipe-sight) 的上游采集端。两边约定共享 PostgreSQL 库（默认库名 `pipesight`）里的 `data_sources`、`news_articles`，以及 Kafka topic 名 `news_pipeline`。本仓库目前实现的是：读取 `data_sources` 做启停门控、把 spider 种子写进这张表、以及**消费** `news_pipeline` 写入 `news_articles`。抓取进程本身不向 Kafka 发布消息。
+
+`pyproject.toml` 里的包名仍是 `scrapy-template`。Scrapy 工程名（`scrapy.cfg` 的 `project`、`BOT_NAME`）是 `app`。GitHub 仓库名是 `news-pipelines`。
 
 ## 1. 项目概述
 
 | 项目项 | 说明 |
 | --- | --- |
-| 项目名称 | `app` |
-| 项目类型 | Python Scrapy 爬虫模板 / CLI 工具 |
+| 仓库 | `news-pipelines` |
 | 运行入口 | `run_spider.py` |
-| 核心能力 | spider 运行清单、断点续跑、运行摘要、JSONL 导出、字段清洗、URL 去重、可选 MySQL upsert、spider-monitor 运行监控、配置校验 |
-| 包管理 | `uv` |
-| Python 版本 | `>=3.12` |
-| 数据库 | MySQL 可选；项目不自动建表，建表契约见 `docs/database-contract.md` |
-| 当前示例 spider | `example`，抓取 `https://quotes.toscrape.com/` |
+| 包管理 | `uv`，`requires-python >=3.12` |
+| 爬虫框架 | Scrapy `>=2.16` |
+| 默认采集范围 | `app/spiders/NNN_<host>.py`，编号 `001`–`150`，共 150 个站点 spider；`example` 不在默认清单里 |
+| 抓取产物 | `run_reports/items/<spider>.jsonl`，以及 `run_reports/<run_id>/summary.json` |
+| 断点 | 每个 spider 的 Scrapy `JOBDIR` 在 `run_state/<spider>/` |
+| 可选 MySQL | `MYSQL_ENABLED=1` 时，`MySQLItemPipeline` 按 `url_hash` upsert 已存在的 `rss_news` |
+| 可选 PostgreSQL | 只服务于 Kafka 消费者和数据源门控，不挂在 Scrapy 抓取 pipeline 上 |
+| 监控 | `spider-monitor[scrapy]`，扩展在 `app/extensions/spider_monitor.py` |
 
-适用场景：
+`example` 仍抓取 `https://quotes.toscrape.com/`，用来检查 Scrapy 工程能不能跑起来。日常批量采集走 150 个站点 spider。
 
-- 新增多个站点 spider，并通过一个统一入口批量运行。
-- 需要保留 Scrapy `JOBDIR` 状态，支持失败后续跑。
-- 需要将标准化后的 item 写入 JSONL 或 MySQL。
-- 需要基础运行监控、质量阈值和失败摘要，方便排查生产采集任务。
+## 2. 与 pipe-sight 的关系
 
-## 2. 项目架构图
+代码里把对方称为 pipe-sight（源码注释里的本地路径是 `D:\A_CODEBASE\pipe-sight`）。公开仓库是 <https://github.com/liuxu6014/pipe-sight>。本仓库能对上的共享约定如下。
+
+| 共享对象 | 本仓库实际怎么用 |
+| --- | --- |
+| PostgreSQL `data_sources` | `tools/seed_data_sources.py` 为每个站点 spider 幂等写入一行，`adapter='news_pipelines_spider'`，匹配键是 `config.spider_name`。`PIPESIGHT_SOURCE_GATE=1` 时，`run_spider.py` 只跑 `is_enabled=true` 的 spider |
+| PostgreSQL `news_articles` | `tools/kafka_consume.py` 在 `PG_ENABLED=1` 时，把 Kafka 消息 upsert 进去。抓取 pipeline **不会**写这张表 |
+| Kafka topic `news_pipeline` | 只作为消费者的默认 topic（`KAFKA_TOPIC`，默认 `news_pipeline`）。本仓库没有 producer |
+
+门控细节在 `app/runtime/source_gate.py`：
+
+- 默认关闭。只有 `PIPESIGHT_SOURCE_GATE=1` 才查询数据库。
+- 查询条件是 `adapter = 'news_pipelines_spider'`，读取 `config->>'spider_name'` 和 `is_enabled`。
+- 没有对应行时，默认仍允许运行（`PIPESIGHT_SOURCE_GATE_ALLOW_UNKNOWN=1`）。设为 `0` 后，未登记的 spider 会被跳过，日志原因是 `not_in_pipesight`。
+- 已登记且 `is_enabled=false` 的 spider 被跳过，原因是 `disabled_in_pipesight`。
+- 连接或查询失败时回退为运行全部已选 spider，日志是 `PIPESIGHT_SOURCE_GATE_FAILED`。
+- 门控使用 `PG_HOST` / `PG_PORT` / `PG_DATABASE` / `PG_USER` / `PG_PASSWORD` / `PG_CONNECT_TIMEOUT`。它不看 `PG_ENABLED`。`PG_ENABLED` 只控制消费者是否允许写库。
+
+种子脚本 `tools/seed_data_sources.py`：
+
+```bash
+uv run python tools/seed_data_sources.py --dry-run
+uv run python tools/seed_data_sources.py
+uv run python tools/seed_data_sources.py --reactivate
+```
+
+每行写入 `name`（`site_name`）、`type`（`website`，微信域名时为 `wechat`）、`url`（`entry_url`）、`adapter='news_pipelines_spider'`、`config`（`spider_name`、`site_id`、`site_type`、`language`）。`cron` 与 `next_run_at` 写 `NULL`，调度留在本仓库的 `run_spider.py`。重复执行会更新名称和 URL，并保留管理员已经改过的 `is_enabled`；`--reactivate` 才把停用的来源重新打开。表由 pipe-sight 侧维护，本仓库没有 `data_sources` 的迁移脚本。
+
+字段级契约见 [docs/database-contract.md](docs/database-contract.md)。
+
+## 3. 运行架构
 
 ```mermaid
 flowchart TB
-    User["开发者 / 调度系统"]
-    CLI["run_spider.py<br/>统一 CLI 入口"]
-    RunNames["SPIDER_RUN_NAMES<br/>默认运行清单"]
-    Configs["SPIDER_CONFIGS<br/>spider 元数据与运行差异"]
-    ConfigHelpers["runtime/spider_configs.py<br/>筛选 / 匹配 / 校验"]
-    Runner["runtime/runner.py<br/>子进程调度 / JOBDIR / summary"]
-    Settings["settings.py<br/>Scrapy 全局配置"]
-    Env[".env<br/>本地环境变量"]
-    Spider["spiders/<name>.py<br/>站点抓取逻辑"]
-    Items["items.py<br/>通用 Item 字段"]
-    Middleware["middlewares.py<br/>Spider / Downloader 中间件<br/>含 SSRF 防护"]
-    Pipeline["pipelines.py<br/>字段清洗 / hash / MySQL"]
-    Dedupe["item_deduplication.py<br/>canonical_url / url_hash / content_hash"]
-    Monitor["extensions/spider_monitor.py<br/>Scrapy signal 监控适配"]
-    Quality["monitors/quality_rules.py<br/>质量阈值"]
-    Reports["run_reports/<br/>items JSONL / summary / dead letters"]
-    State["run_state/<br/>Scrapy JOBDIR 断点状态"]
-    MySQL["MySQL rss_news<br/>可选 upsert"]
-    Tools["tools/<br/>生成配置 / 校验 / watch"]
-    Tests["tests/<br/>单元测试"]
+    User["开发者 / 调度"]
+    CLI["run_spider.py"]
+    Discover["runtime/spider_configs.py<br/>discover_spider_configs"]
+    Gate["runtime/source_gate.py<br/>PIPESIGHT_SOURCE_GATE"]
+    Runner["runtime/runner.py<br/>子进程 / JOBDIR / summary"]
+    Scrapy["scrapy crawl"]
+    Spiders["app/spiders/NNN_host.py"]
+    Clean["ScrapyTemplatePipeline<br/>清洗 / hash"]
+    MySQL["MySQLItemPipeline<br/>MYSQL_ENABLED=1"]
+    Rss["MySQL rss_news"]
+    Reports["run_reports/"]
+    State["run_state/JOBDIR"]
+    PG["PostgreSQL pipesight<br/>data_sources"]
+    Consumer["tools/kafka_consume.py<br/>KafkaNewsConsumer"]
+    Topic["Kafka topic news_pipeline"]
+    Articles["PostgreSQL news_articles"]
 
     User --> CLI
-    User --> Tools
-    CLI --> RunNames
-    CLI --> Configs
-    CLI --> ConfigHelpers
+    CLI --> Discover
+    CLI --> Gate
+    Gate --> PG
     CLI --> Runner
-    Env --> Settings
-    Settings --> Middleware
-    Settings --> Pipeline
-    Settings --> Monitor
-    Runner --> Spider
     Runner --> State
+    Runner --> Scrapy
+    Scrapy --> Spiders
+    Spiders --> Clean
+    Clean --> Reports
+    Clean --> MySQL
+    MySQL --> Rss
     Runner --> Reports
-    Spider --> Items
-    Spider --> Pipeline
-    Middleware --> Spider
-    Pipeline --> Dedupe
-    Pipeline --> Reports
-    Pipeline --> MySQL
-    Monitor --> Quality
-    Monitor --> Reports
-    Tools --> Configs
-    Tests --> CLI
-    Tests --> Pipeline
-    Tests --> Monitor
+    Topic --> Consumer
+    Consumer --> Articles
+    Consumer --> PG
 ```
 
-运行数据流：
+抓取链路和 Kafka 消费链路是分开的。抓取结果停在 JSONL 和可选的 MySQL `rss_news`。`news_articles` 只由消费者写入。
 
 ```mermaid
 sequenceDiagram
-    participant User as 开发者/调度器
+    participant User as 调度
     participant CLI as run_spider.py
-    participant Runner as runtime/runner.py
-    participant Scrapy as Scrapy CLI
-    participant Spider as spider
-    participant Pipeline as pipelines.py
-    participant Monitor as spider_monitor.py
-    participant Report as run_reports
-    participant DB as MySQL
+    participant Gate as source_gate
+    participant Runner as runner.py
+    participant Scrapy as scrapy crawl
+    participant Pipe as ScrapyTemplatePipeline
+    participant DB as MySQL rss_news
 
     User->>CLI: uv run python run_spider.py
-    CLI->>CLI: 读取 SPIDER_RUN_NAMES 与 SPIDER_CONFIGS
-    CLI->>Runner: 传入选中 spider 和运行参数
-    Runner->>Runner: 校验并准备 JOBDIR
-    Runner->>Scrapy: python -m scrapy crawl <spider> -s ...
-    Scrapy->>Spider: 下载页面并调用 parse
-    Spider->>Pipeline: yield ScrapyTemplateItem
-    Pipeline->>Pipeline: 清洗文本字段并生成 hash
-    Pipeline-->>DB: MYSQL_ENABLED=1 时批量 upsert
-    Scrapy->>Monitor: 触发 opened/item/error/closed signals
-    Monitor->>Monitor: 汇总质量阈值
-    Scrapy-->>Runner: 返回退出码
-    Runner->>Report: 写 item JSONL 与 summary JSON
+    CLI->>CLI: discover_spider_configs，选出 SPIDER_RUN_NAMES
+    CLI->>Gate: PIPESIGHT_SOURCE_GATE=1 时读 data_sources.is_enabled
+    Gate-->>CLI: 保留启用的 spider
+    CLI->>Runner: run_selected
+    Runner->>Runner: 准备 run_state/spider 的 JOBDIR
+    Runner->>Scrapy: python -m scrapy crawl name -s JOBDIR=... -O jsonl
+    Scrapy->>Pipe: yield item 或 dict
+    Pipe->>Pipe: 清洗字段，补 canonical_url / url_hash / content_hash
+    Pipe-->>DB: MYSQL_ENABLED=1 时按 url_hash upsert
+    Scrapy-->>Runner: 退出码
+    Runner->>Runner: 写 run_reports/run_id/summary.json
 ```
 
-## 3. 技术栈
+## 4. 技术栈
 
 | 分类 | 技术 |
 | --- | --- |
-| 语言 | Python 3.12+ |
-| 爬虫框架 | Scrapy 2.16+ |
-| 包管理 | uv |
-| 配置加载 | python-dotenv |
-| 数据库驱动 | PyMySQL |
-| 运行监控 | spider-monitor `[scrapy]` |
-| 数据输出 | Scrapy feed export JSONL、可选 MySQL |
-| 测试 | unittest，项目也声明了 pytest 作为开发依赖 |
-| 代码检查 | ruff |
-| 依赖审计 | pip-audit |
-| 容器化 | Docker，基础镜像 `python:3.12-slim` |
-| CI | GitHub Actions，覆盖 Windows 与 Ubuntu |
+| 语言 | Python 3.12+（`.python-version` 为 `3.12`） |
+| 爬虫 | Scrapy 2.16+。站点 spider 使用 `async def start()`，不再依赖已停用的 `start_requests` |
+| 包管理 | uv，锁文件 `uv.lock` |
+| 配置 | python-dotenv，读取项目根目录 `.env` |
+| HTTP 变体 | `curl_cffi`（`CURL_CFFI_HOSTS`）、Playwright（`PLAYWRIGHT_HOSTS`）。未命中白名单的请求仍走 Scrapy 下载器 |
+| MySQL | PyMySQL，表默认 `rss_news` |
+| PostgreSQL | psycopg2，库默认 `pipesight`，表默认 `news_articles` |
+| Kafka | `kafka-python`。仓库里只有 `KafkaConsumer` / `KafkaAdminClient` |
+| 监控 | spider-monitor `0.2.2` 的 Scrapy extra |
+| 测试 | `unittest`。`pytest` 在 dev 依赖里，CI 跑的是 unittest |
+| 检查 | ruff、pip-audit |
+| 容器 | `Dockerfile`，基础镜像 `python:3.12-slim`，非 root 用户 `appuser` |
+| CI | `.github/workflows/test.yml`，Windows 与 Ubuntu |
 
-## 4. 项目目录结构
+## 5. 目录结构
 
 ```text
-app/
-├── run_spider.py                         # 统一运行入口；维护 SPIDER_RUN_NAMES / SPIDER_CONFIGS
-├── scrapy.cfg                            # Scrapy 项目配置，默认 settings 指向 app.settings
-├── pyproject.toml                        # uv 项目元数据与依赖声明
-├── uv.lock                               # uv 锁定文件
-├── .python-version                       # Python 版本提示
-├── .env.example                          # 环境变量模板；复制为 .env 使用
-├── .gitignore                            # 忽略本地环境、运行状态和抓取产物
-├── Dockerfile                            # 容器镜像构建配置
-├── .dockerignore                         # Docker 构建上下文排除规则
-├── .github/
-│   └── workflows/
-│       └── test.yml                      # CI：依赖安装、lint、审计、测试、编译、配置校验、dry-run
+news-pipelines/
+├── run_spider.py                  # CLI：发现 spider、门控、调用 runner
+├── scrapy.cfg                     # default settings = app.settings，project = app
+├── pyproject.toml                 # 包名仍为 scrapy-template
+├── uv.lock
+├── .python-version                # 3.12
+├── .env.example                   # 环境变量模板；复制为 .env，不要提交 .env
+├── Dockerfile
+├── .dockerignore
+├── .github/workflows/test.yml
 ├── docs/
-│   ├── database-contract.md              # MySQL 表结构与写入契约
-│   ├── mcp-usage.md                      # 本地 MCP 工具说明
-│   └── project-overview.md               # 架构补充说明
-├── migrations/
-│   └── mysql/
-│       └── 001_create_rss_news.sql       # MySQL 建表示例
+│   ├── database-contract.md       # rss_news 与 news_articles / data_sources 契约
+│   ├── project-overview.md        # 较早的模块边界说明，和当前代码有差距
+│   ├── mcp-usage.md
+│   ├── api_discovery.md
+│   ├── gov-news-integration.md
+│   ├── gov_news_scrapy.md
+│   ├── gov_news_frontend_style.md
+│   ├── site_spiders_manifest.json
+│   └── site_spiders_manifest.txt
+├── migrations/mysql/
+│   └── 001_create_rss_news.sql    # 仅 MySQL 示例；没有 PostgreSQL 迁移
 ├── app/
-│   ├── __init__.py
-│   ├── settings.py                       # Scrapy 全局配置与 .env 映射
-│   ├── items.py                          # 通用 item 字段定义
-│   ├── pipelines.py                      # 字段清洗、hash、MySQL 批量写入和死信
-│   ├── middlewares.py                    # Scrapy 中间件，含下载请求 SSRF 防护
-│   ├── item_deduplication.py             # URL 规范化、url_hash、content_hash
+│   ├── settings.py                # Scrapy 全局设置和 .env 映射
+│   ├── items.py                   # ScrapyTemplateItem
+│   ├── pipelines.py               # 清洗、MySQL upsert、news_articles upsert
+│   ├── middlewares.py             # SSRF、curl_cffi、Playwright、可选代理池
+│   ├── item_deduplication.py      # canonical_url、url_hash、content_hash
+│   ├── html_markdown.py           # 详情 HTML 转 Markdown
 │   ├── runtime/
-│   │   ├── __init__.py
-│   │   ├── runner.py                     # 子进程运行、JOBDIR 安全、日志、summary
-│   │   └── spider_configs.py             # spider 配置筛选、匹配和校验
+│   │   ├── runner.py              # 子进程、JOBDIR、run_reports
+│   │   ├── spider_configs.py      # 自动发现与校验
+│   │   ├── source_gate.py         # data_sources 启停门控
+│   │   ├── kafka_consumer.py      # KafkaNewsConsumer
+│   │   ├── spider_quality.py      # 时间、乱码、质量报告辅助
+│   │   ├── curl_http.py
+│   │   └── playwright_http.py
 │   ├── spiders/
-│   │   ├── __init__.py
-│   │   └── example.py                    # 示例 spider
-│   ├── extensions/
-│   │   ├── __init__.py
-│   │   └── spider_monitor.py             # spider-monitor Scrapy 扩展
-│   └── monitors/
-│       ├── __init__.py
-│       └── quality_rules.py              # 采集质量阈值规则
+│   │   ├── NNN_<host>.py          # 150 个自包含站点 spider
+│   │   ├── example.py             # quotes.toscrape.com，不在默认清单
+│   │   └── source_availability.py # 探测记录，不是 spider，运行时不读取
+│   ├── extensions/spider_monitor.py
+│   └── monitors/quality_rules.py
 ├── tools/
-│   ├── build_spider_configs.py           # 根据已注册 spider 生成 SPIDER_CONFIGS 候选
-│   ├── validate_spider_configs.py        # 校验 run_spider.py 中的配置
-│   └── watch_spiders.py                  # 监听文件变更后自动执行命令
-└── tests/
-    ├── test_build_spider_configs.py
-    ├── test_downloader_middleware.py
-    ├── test_item_deduplication.py
-    ├── test_mysql_pipeline.py
-    ├── test_run_spider_jobdir_modes.py
-    ├── test_run_spider_selection.py
-    ├── test_spider_monitor_extension.py
-    └── test_validate_spider_configs.py
+│   ├── seed_data_sources.py
+│   ├── kafka_consume.py
+│   ├── validate_spider_configs.py
+│   ├── build_spider_configs.py
+│   ├── watch_spiders.py
+│   ├── verify_extract.py
+│   ├── verify_sources.py
+│   ├── discover_source_endpoints.py
+│   ├── probe_pagination.py
+│   ├── probe_site_apis.py
+│   ├── generate_xpath_spiders.py
+│   ├── generate_sitemap_spiders.py
+│   ├── generate_wp_spiders.py
+│   └── export_us_government_frontend_data.py
+└── tests/                         # unittest，覆盖选择、JOBDIR、MySQL、Postgres、Kafka、门控
 ```
 
-本地运行目录：
+本地运行目录不提交：
 
-- `run_state/`：Scrapy `JOBDIR` 断点状态，仅本地或运行环境使用。
-- `run_reports/`：运行摘要、item JSONL、MySQL dead letter 文件，仅本地或运行环境使用。
-- `.env`：本地密钥与环境差异，不提交。
-- `.venv/`、`.codegraph/`、`.codex/mcp/`：本地工具或索引目录，不属于运行产物。
+- `run_state/`：Scrapy `JOBDIR`。
+- `run_reports/`：JSONL、summary、MySQL/PostgreSQL dead letter。
+- `.env`：本地密钥。
+- `.venv/`、`.codegraph/`、`.scrapy/`、`httpcache/`。
 
-## 5. 核心模块/分层说明
+`docs/project-overview.md` 仍按早期模板描述模块图，没有 source gate 和 Kafka 消费者。运行事实以本文和代码为准。
 
-### 5.1 入口层：`run_spider.py`
+## 6. 主运行流程
 
-`run_spider.py` 是项目的统一运行入口，日常运行优先使用它，而不是直接散落执行多个 `scrapy crawl` 命令。
+### 6.1 发现与默认清单
 
-核心配置：
+`run_spider.py` 在导入时调用 `discover_spider_configs(include_example=True)`。发现逻辑只收录直接放在 `app/spiders/` 下、且被 Scrapy spider loader 注册的类。`SPIDER_CONFIGS` 的字段来自 spider 类属性：`name`、`site_name`、`site_type`、`language`、`entry_url`、`section_urls`、`start_urls`，另外带上 `jobdir=run_state/<name>`、空的 `settings`、`timeout_seconds=0`。
 
-- `SPIDER_CONFIGS`：由 `app/runtime/spider_configs.discover_spider_configs()` 扫描 Scrapy spider loader 自动生成，覆盖 `app/spiders/` 下全部扁平站点 spider（`NNN_<host>.py`）及 `example`，字段包括 `spider`、`file`、`start_urls`、`jobdir`、`timeout_seconds`、`settings`。
-- `SPIDER_RUN_NAMES`：默认运行清单，即除 `example` 外的全部扁平站点 spider；值必须匹配 `SPIDER_CONFIGS` 中的 `name`。
+`SPIDER_RUN_NAMES` 是其中除 `example` 以外的全部 name，按名字排序。因此不带参数执行 `run_spider.py` 会尝试跑满 150 个站点 spider。
+
+`timeout_seconds=0` 表示 runner 不给子进程加超时。站点自己的下载超时写在 spider 的 `custom_settings` 里。
+
+### 6.2 选择与门控
 
 常用参数：
 
 ```bash
 uv run python run_spider.py --dry-run
-uv run python run_spider.py --spider example
-uv run python run_spider.py --fresh
-uv run python run_spider.py --resume
-uv run python run_spider.py --limit 1 --offset 0
+uv run python run_spider.py --spider 059_nhc_gov_cn
+uv run python run_spider.py --spider 120_zgznh_com --spider 059_nhc_gov_cn
+uv run python run_spider.py --limit 5 --offset 0
 uv run python run_spider.py --skip example
 uv run python run_spider.py --available-only
+uv run python run_spider.py --fresh --spider 059_nhc_gov_cn
+uv run python run_spider.py --resume --spider 059_nhc_gov_cn
 uv run python run_spider.py --stop-on-failure
 uv run python run_spider.py --setting DOWNLOAD_DELAY=1
+uv run python run_spider.py --allow-empty
 ```
 
-小批次运行直接用 `run_spider.py` 的 `--limit` / `--offset` 或 `--spider` 控制：
+`--spider` 覆盖默认清单。`--skip` 可按 name、标题、URL、文件路径或 glob 排除。`--available-only` 会再跑一次 `scrapy list`，丢掉当前解释器加载不到的名字。选中列表再交给 `select_enabled()`。dry-run 在门控之后返回，不启动子进程；一个 spider 都没选中时退出码是 `66`，除非加了 `--allow-empty`。
+
+### 6.3 子进程、JOBDIR、报告
+
+`app/runtime/runner.py` 对每个 spider：
+
+1. 把 `JOBDIR` 解析到项目内的 `run_state/<spider>`。路径逃出 `run_state/` 会直接报错。
+2. `--fresh` 时删掉旧目录再创建；默认保留目录，Scrapy 按 JOBDIR 续跑。`--resume` 与默认行为相同，只是和 `--fresh` 互斥。
+3. 执行 `python -m scrapy crawl <name> -s JOBDIR=... -O run_reports/items/<name>.jsonl`。
+4. 额外传入 `-a output=run_reports/<run_id>/raw/<name>.json`。当前站点 spider 不写这个文件；runner 只在文件存在且 `reason` 为 `closespider_timeout` 时把它记成失败。
+5. 用 JSONL 行数作为 item 计数，写出：
+
+```text
+run_reports/
+├── items/
+│   └── 059_nhc_gov_cn.jsonl
+└── <run_id>/
+    ├── summary.json
+    └── spiders/
+        └── 059_nhc_gov_cn.json
+```
+
+`--output-dir` 与 `--summary-dir` 可以改这两处位置。默认分别是 `run_reports/items` 和 `run_reports`。
+
+### 6.4 清洗与 MySQL
+
+`ITEM_PIPELINES` 只有两项：
+
+| 优先级 | 类 | 作用 |
+| --- | --- | --- |
+| 300 | `ScrapyTemplatePipeline` | 去掉文本空白；有 URL 时补 `canonical_url`、`source_site`、`source_category`、`content_preview`、`crawled_at`，并用 `item_deduplication.item_hashes()` 写 `url_hash` / `content_hash`。能解析的 `publish_time` 先规范成 `YYYY-MM-DD HH:MM` |
+| 850 | `MySQLItemPipeline` | `MYSQL_ENABLED=1` 时批量 `INSERT ... ON DUPLICATE KEY UPDATE`，主键是 `url_hash` |
+
+站点 spider 多数 `yield` 普通 dict，`example` yield `ScrapyTemplateItem`。pipeline 用 ItemAdapter，两种都能接。
+
+`DROP_ITEM_WITHOUT_URL` 默认关闭。打开后，没有 URL 的 item 会在清洗阶段被丢掉。
+
+MySQL 默认关闭，项目不建表。开启前执行 `migrations/mysql/001_create_rss_news.sql`。`publish_time` 在写入行时再转成 MySQL `DATETIME(3)` 字符串（`YYYY-MM-DD HH:MM:SS.fff`），解析不了则为 `NULL`。失败批次写到 `run_reports/mysql_dead_letters/`；完整行只有 `MYSQL_DEAD_LETTER_INCLUDE_ROWS=1` 才落盘。
+
+`NewsArticlesPipeline` 实现了 `from_crawler()`，但没有放进 `ITEM_PIPELINES`。抓取过程即使 `PG_ENABLED=1` 也不会写 `news_articles`。
+
+### 6.5 下载中间件
+
+`app/middlewares.py` 里启用了四层 downloader middleware：
+
+- `ScrapyTemplateDownloaderMiddleware`：默认 `SSRF_PROTECTION_ENABLED=true`，拦截 private、loopback、link-local、reserved、multicast。需要放行时设置 `SSRF_ALLOWED_HOSTS`，或在 spider 的 `custom_settings` 里写本站域名。很多站点 spider 已经放行了自己的域名，避免保留地址段上的误判。
+- `CurlCffiDownloaderMiddleware`：主机命中 `CURL_CFFI_HOSTS` 时改用 Chrome TLS 指纹。
+- `PlaywrightRenderMiddleware`：主机命中 `PLAYWRIGHT_HOSTS` 时用浏览器渲染。个别政府站在 `custom_settings` 里打开了这项。
+- `RotatingProxyMiddleware`：只有设置了 `CRAWLER_PROXY_POOL`（逗号分隔的代理 URL）才会启用，否则 Scrapy 以 `NotConfigured` 卸掉它。`.env.example` 没有这项。
+
+全局默认：`ROBOTSTXT_OBEY=True`，`CONCURRENT_REQUESTS=16`，`CONCURRENT_REQUESTS_PER_DOMAIN=8`，`DOWNLOAD_DELAY=0.5`，AutoThrottle 开启，retry 覆盖 `408/429/5xx`。单个 spider 的 `custom_settings` 会覆盖这些值。
+
+## 7. Kafka 与 PostgreSQL
+
+### 7.1 本仓库没有 producer
+
+在 `app/`、`tools/`、`tests/` 和配置里搜索不到 Kafka producer，也没有把抓取 item 发到 topic 的调用。`run_spider.py` 不会连接 Kafka。
+
+因此当前抓取结果的去向是：
+
+- `run_reports/items/<spider>.jsonl`
+- `run_reports/<run_id>/summary.json` 与 `spiders/<spider>.json`
+- `MYSQL_ENABLED=1` 时的 MySQL `rss_news`
+
+这些数据不会进入 `news_pipeline`。topic 名只存在于消费者默认值 `KAFKA_TOPIC=news_pipeline`。如果下游对接说明要求本爬虫把新闻发布到该 topic，发布端不在本仓库。
+
+### 7.2 消费者：topic 到 `news_articles`
+
+`tools/kafka_consume.py` 构造 `app.runtime.kafka_consumer.KafkaNewsConsumer`，用 `app.pipelines.NewsArticlesPipeline` 写入 PostgreSQL。
 
 ```bash
-uv run python run_spider.py --limit 5 --offset 0
-uv run python run_spider.py --spider 120_zgznh_com --spider 059_nhc_gov_cn
+uv run python tools/kafka_consume.py --dry-run --max-messages 5
+uv run python tools/kafka_consume.py
+uv run python tools/kafka_consume.py --max-messages 1000
+uv run python tools/kafka_consume.py --ensure-topic --topic news_pipeline
 ```
 
-网络失败来源先运行端点侦察，再决定补 RSS/sitemap/API 或移出清单：
+行为：
 
-```bash
-uv run python tools/discover_source_endpoints.py
-uv run python tools/probe_pagination.py
-```
+- 非 dry-run 且 `PG_ENABLED` 不是真值时，直接报错并退出。dry-run 只打印映射结果，不写库、不提交 offset。
+- `KAFKA_BOOTSTRAP_SERVERS` 为空时，CLI 回退到 `localhost:9092`。这是 `KafkaNewsConsumer.DEFAULT_BOOTSTRAP_SERVERS`，不是一套内置的远程集群地址。
+- 默认 topic `news_pipeline`，默认 group `news-pipelines-rss-consumer`（名字还留着 rss，写入目标已经是 PostgreSQL `news_articles`），`auto.offset.reset=earliest`，关闭 auto commit。
+- 消息是 JSON。`title`、`url`、`content_md` 三者缺一则整条跳过。`ctime` 为 Unix 秒时写成 `published_at`。`content` 为空时用 `content_md` 填充。
+- `source_id` 先按 `data_sources.name = site_name` 找，再按 `url LIKE '%domain%'` 找。都没有就 `INSERT` 一行 `adapter='kafka'` 的 `data_sources`。这和种子脚本的 `adapter='news_pipelines_spider'`、`config.spider_name` 不是同一套键。
+- Upsert 语句是 `INSERT ... ON CONFLICT (md5(url)) DO UPDATE`，更新标题、作者、时间、正文等，不覆盖 `source_id`、`url`、`is_pushed`。
+- offset 在对应批次 `flush` 成功后提交。中途崩溃会重放未提交记录（at-least-once）。
+- `--ensure-topic` 用 `KafkaAdminClient` 建 topic，已存在则忽略。
 
-### 5.2 运行层：`app/runtime/`
+死信目录默认 `run_reports/pg_dead_letters/`。
 
-`runtime/runner.py` 负责把选中的配置转换为 Scrapy 子进程命令，并管理运行状态。
+### 7.3 双写风险
 
-主要职责：
+抓取进程写的是 MySQL `rss_news`（而且默认关闭），消费者写的是 PostgreSQL `news_articles`。两张表不是同一个库。
 
-- 为每个 spider 准备安全的 `JOBDIR`，防止状态目录逃逸到 `run_state/` 之外。
-- 支持 `--fresh` 清理旧状态，支持默认续跑。
-- 对每个 spider 设置超时时间。
-- 将输出写到 `run_reports/items/<spider>.jsonl`。
-- 生成 `run_reports/<run_id>/summary.json` 与每个 spider 的独立 summary。
+风险在 PostgreSQL 这一侧：本仓库的消费者和 pipe-sight 如果同时写 `news_articles`，会打到同一个 `md5(url)` 唯一索引上，后写的一方覆盖标题、作者、`published_at`、正文和 `category_id`。消费者还可能插入 `adapter='kafka'` 的 `data_sources` 行；若 `site_name` 和种子行的 `name` 对不上，目录里会出现第二条来源，门控仍然只认 `news_pipelines_spider`。
 
-`runtime/spider_configs.py` 负责配置筛选与校验：
+在发布端补齐之前，不要把本消费者当成抓取结果进入 pipe-sight 的通道，也不要和 pipe-sight 自己的 `news_articles` 写入同时开着，除非已经确认只有一方负责这张表。
 
-- 根据 name、title、URL、文件路径或 glob 规则匹配 spider。
-- 发现 Scrapy 当前可用 spider。
-- 校验配置重复、缺失、URL 非法、文件不存在等问题。
+## 8. 本地运行
 
-### 5.3 Scrapy 配置层：`app/settings.py`
+### 8.1 安装
 
-`settings.py` 是 Scrapy 全局配置入口，并从 `.env` 读取环境差异。
-
-当前默认策略：
-
-- 遵守 `robots.txt`：`ROBOTSTXT_OBEY=True`。
-- 默认并发：`CONCURRENT_REQUESTS=16`，`CONCURRENT_REQUESTS_PER_DOMAIN=8`。
-- 默认下载延迟：`DOWNLOAD_DELAY=0.5`。
-- 启用 AutoThrottle。
-- 启用 Scrapy retry，覆盖 `408/429/5xx`。
-- 默认关闭 HTTP cache，可通过 `.env` 开启。
-- 启用自定义 downloader middleware、pipeline 和 spider-monitor extension。
-
-### 5.4 Spider 层：`app/spiders/`
-
-每个站点 spider 放在 `app/spiders/`。当前示例 `example.py` 展示了最小实现：
-
-- 定义 `name`、`allowed_domains`、`start_urls`。
-- 在 `parse()` 中解析页面并 `yield ScrapyTemplateItem`。
-- 通过 `response.follow()` 跟进分页。
-
-新增或重命名扁平站点 spider 后，无需手工维护配置：`run_spider.py` 会通过 `discover_spider_configs()` 自动发现，`SPIDER_CONFIGS` 与 `SPIDER_RUN_NAMES` 随 `scrapy list` 结果动态生成。可用 `tools/validate_spider_configs.py --check-available` 校验。
-
-### 5.5 Item 与去重层
-
-`items.py` 定义通用字段：
-
-- 基础字段：`title`、`url`、`canonical_url`
-- 去重字段：`url_hash`、`content_hash`
-- 内容字段：`content`、`content_md`、`summary`
-- 来源字段：`source`、`source_site`、`source_category`、`domain`
-- 辅助字段：`publish_time`、`author`、`image_url`、`raw_item`、`crawled_at`
-
-`item_deduplication.py` 会：
-
-- 将 URL 转为绝对地址并规范化 scheme、host。
-- 移除常见追踪参数，例如 `utm_*`、`spm`、`timestamp`。
-- 对规范化 URL 生成 `url_hash`。
-- 对正文、Markdown 或摘要生成 `content_hash`。
-
-### 5.6 Pipeline 层：`app/pipelines.py`
-
-`ScrapyTemplatePipeline`：
-
-- 清理文本字段前后空白。
-- 可配置是否丢弃缺少 URL 的 item。
-- 自动补充 `canonical_url`、`url_hash`、`content_hash`。
-
-`MySQLItemPipeline`：
-
-- 默认关闭，通过 `MYSQL_ENABLED=1` 开启。
-- 按 `MYSQL_BATCH_SIZE` 批量写入。
-- 使用 `ON DUPLICATE KEY UPDATE` 基于 `url_hash` 做 upsert。
-- 将 `publish_time` 标准化为 MySQL `DATETIME(3)`。
-- 写入失败时可生成 dead letter，默认不包含完整行数据，避免泄露敏感字段。
-- 支持 transient MySQL 错误重试，配置项为 `MYSQL_RETRY_TIMES` 与 `MYSQL_RETRY_BACKOFF_SECONDS`。
-
-MySQL 表结构不由爬虫自动创建。开启 MySQL 前必须先执行 `migrations/mysql/001_create_rss_news.sql`，并保持它与 `docs/database-contract.md`、`MySQLItemPipeline.COLUMNS` 一致。
-
-### 5.7 中间件层：`app/middlewares.py`
-
-项目包含 Scrapy spider middleware 与 downloader middleware。Downloader middleware 中包含 SSRF 防护：
-
-- 默认开启：`SSRF_PROTECTION_ENABLED=true`
-- 默认阻止 private、loopback、link-local、reserved、multicast 等地址。
-- 如确实需要访问内网或本地地址，应通过 `SSRF_ALLOWED_HOSTS` 做显式 allowlist。
-
-### 5.8 监控层：`app/extensions/spider_monitor.py`
-
-该扩展连接 Scrapy signals：
-
-- `spider_opened`
-- `item_scraped`
-- `item_dropped`
-- `spider_error`
-- `spider_closed`
-
-它会向 `spider-monitor` 上报运行生命周期、item 事件、错误和质量结果。非本地环境下，如果设置了 `SPIDER_MONITOR_ENDPOINT`，必须使用 HTTPS。
-
-质量阈值由 `.env` 控制：
-
-- `SPIDER_MONITOR_MIN_ITEMS`
-- `SPIDER_MONITOR_MAX_DROPPED`
-- `SPIDER_MONITOR_MAX_SPIDER_ERRORS`
-- `SPIDER_MONITOR_MAX_DB_ERRORS`
-- `SPIDER_MONITOR_FAIL_ON_QUALITY_ERROR`
-
-### 5.9 工具层：`tools/`
-
-| 工具 | 用途 |
-| --- | --- |
-| `build_spider_configs.py` | 扫描 Scrapy 已注册 spider，打印 `SPIDER_CONFIGS` 配置候选（现已自动发现，主要用于核对） |
-| `validate_spider_configs.py` | 校验 `SPIDER_CONFIGS` 与 `SPIDER_RUN_NAMES` 是否一致 |
-| `watch_spiders.py` | 监听 spider、配置、工具文件变更，并自动执行指定命令 |
-
-## 6. 如何本地运行项目
-
-### 6.1 环境准备
-
-安装：
-
-- Python 3.12+
-- uv
-- 可选：MySQL 8.x 或兼容版本
-- 可选：Docker
-
-确认版本：
-
-```bash
-python --version
-uv --version
-```
-
-### 6.2 安装依赖
+需要 Python 3.12+ 和 uv。MySQL、PostgreSQL、Kafka、Docker 都是可选的。
 
 ```bash
 uv sync
+uv run scrapy list
+uv run python tools/validate_spider_configs.py --check-available
+uv run python run_spider.py --dry-run
 ```
 
-该命令会根据 `pyproject.toml` 和 `uv.lock` 创建或更新 `.venv/`。
+`scrapy list` 应能看到 `example` 和 `001_` 到 `150_` 的站点名。dry-run 在默认清单上会打印选中的 150 个 spider；门控关闭时不会连数据库。
 
-### 6.3 配置环境变量
+先跑示例，确认链路：
 
-复制模板：
+```bash
+uv run python run_spider.py --spider example
+```
+
+### 8.2 环境变量
 
 ```bash
 cp .env.example .env
 ```
 
-Windows PowerShell：
-
-```powershell
-Copy-Item .env.example .env
-```
-
-最小本地配置可以保持默认值。默认 `MYSQL_ENABLED=0`，不会连接 MySQL。
-
-常用配置项：
+权威列表是 `.env.example` 和 `app/settings.py`。下面只列代码里真实读取的项。
 
 ```dotenv
 LOG_LEVEL=INFO
@@ -397,250 +378,170 @@ MYSQL_DATABASE=crawler
 MYSQL_USER=root
 MYSQL_PASSWORD=
 MYSQL_TABLE=rss_news
+MYSQL_CHARSET=utf8mb4
+MYSQL_CONNECT_TIMEOUT=10
 MYSQL_BATCH_SIZE=100
 MYSQL_FAIL_ON_ERROR=1
+MYSQL_DEAD_LETTER_INCLUDE_ROWS=0
+MYSQL_MAX_FAILED_BATCHES=20
 MYSQL_RETRY_TIMES=0
 MYSQL_RETRY_BACKOFF_SECONDS=1.0
 
+PG_ENABLED=0
+PG_HOST=127.0.0.1
+PG_PORT=5432
+PG_DATABASE=pipesight
+PG_USER=postgres
+PG_PASSWORD=
+PG_TABLE=news_articles
+PG_CONNECT_TIMEOUT=10
+PG_BATCH_SIZE=100
+PG_FAIL_ON_ERROR=1
+PG_DEAD_LETTER_INCLUDE_ROWS=0
+PG_MAX_FAILED_BATCHES=20
+PG_RETRY_TIMES=0
+PG_RETRY_BACKOFF_SECONDS=1.0
+
+PIPESIGHT_SOURCE_GATE=0
+PIPESIGHT_SOURCE_GATE_ALLOW_UNKNOWN=1
+
+KAFKA_BOOTSTRAP_SERVERS=
+KAFKA_TOPIC=news_pipeline
+KAFKA_GROUP_ID=news-pipelines-rss-consumer
+KAFKA_AUTO_OFFSET_RESET=earliest
+KAFKA_SECURITY_PROTOCOL=
+KAFKA_SASL_MECHANISM=
+KAFKA_SASL_USERNAME=
+KAFKA_SASL_PASSWORD=
+KAFKA_COMMIT_INTERVAL_MSGS=100
+
 SPIDER_MONITOR_ENABLED=1
+SPIDER_MONITOR_PROJECT=app
 SPIDER_MONITOR_ENV=local
 SPIDER_MONITOR_ENDPOINT=
+SPIDER_MONITOR_FAIL_ON_ERROR=0
+SPIDER_MONITOR_MIN_ITEMS=0
+SPIDER_MONITOR_MAX_DROPPED=0
+SPIDER_MONITOR_MAX_SPIDER_ERRORS=0
+SPIDER_MONITOR_MAX_DB_ERRORS=0
+SPIDER_MONITOR_FAIL_ON_QUALITY_ERROR=0
 ```
 
-### 6.4 验证项目配置
+`.env.example` 里还有 `SPIDER_MONITOR_OWNER`、`SPIDER_MONITOR_OWNER_EMAIL`、`SPIDER_MONITOR_OWNER_PHONE`、`SPIDER_MONITOR_OWNER_TEAM`、`SPIDER_MONITOR_FIELD_ALLOWLIST`。`SPIDER_MONITOR_ENV` 不是 `local`、`dev`、`development`、`test` 时，非空的 `SPIDER_MONITOR_ENDPOINT` 必须是 HTTPS，否则扩展以 `NotConfigured` 退出。
 
-```bash
-uv run scrapy list
-uv run python tools/validate_spider_configs.py --check-available
-uv run python run_spider.py --dry-run
-```
+代码另外读取、但没有写进 `.env.example` 的项：
 
-预期至少能看到 `example` spider，并且 dry-run 返回成功。
+| 变量 | 默认 | 作用 |
+| --- | --- | --- |
+| `CURL_CFFI_HOSTS` | 空 | 逗号分隔主机，命中后走 curl_cffi |
+| `CURL_CFFI_CONCURRENCY_PER_HOST` | `2` | |
+| `CURL_CFFI_DELAY_SECONDS` | `0.5` | |
+| `PLAYWRIGHT_HOSTS` | 空 | 逗号分隔主机，命中后走 Playwright |
+| `PLAYWRIGHT_CONCURRENCY_PER_HOST` | `1` | |
+| `PLAYWRIGHT_CHANNEL` | `chrome` | |
+| `CRAWLER_PROXY_POOL` | 空 | 非空才启用轮换代理 |
+| `CRAWLER_PROXY_MAX_ATTEMPTS` | `3` | |
+| `DROP_ITEM_WITHOUT_URL` | 关闭 | 清洗阶段丢掉无 URL 的 item |
+| `MYSQL_DEAD_LETTER_DIR` / `PG_DEAD_LETTER_DIR` | `run_reports` 下对应目录 | |
 
-### 6.5 运行示例 spider
+布尔值接受 `1/true/yes/on`。
 
-通过统一入口运行：
+### 8.3 接入 pipe-sight 的启停
 
-```bash
-uv run python run_spider.py --spider example
-```
+1. `.env` 里填好能连到 pipe-sight 库的 `PG_HOST`、`PG_PORT`、`PG_DATABASE`、`PG_USER`、`PG_PASSWORD`。这一步不需要 `PG_ENABLED=1`。
+2. `uv run python tools/seed_data_sources.py --dry-run` 看将要写入的 spider。
+3. 去掉 `--dry-run` 写入 `data_sources`。
+4. 在 pipe-sight 里切换 `is_enabled`。
+5. 设置 `PIPESIGHT_SOURCE_GATE=1` 后再跑 `run_spider.py`。
 
-直接使用 Scrapy 运行：
-
-```bash
-uv run scrapy crawl example -O output.json
-```
-
-运行后常见输出：
-
-```text
-run_reports/
-├── items/
-│   └── example.jsonl
-└── <run_id>/
-    ├── summary.json
-    └── spiders/
-        └── example.json
-```
-
-### 6.6 fresh 与 resume
-
-默认行为偏向续跑，Scrapy 会使用 `run_state/<spider>` 中的 `JOBDIR` 状态。
-
-清理旧状态重新运行：
-
-```bash
-uv run python run_spider.py --fresh --spider example
-```
-
-显式续跑：
-
-```bash
-uv run python run_spider.py --resume --spider example
-```
-
-### 6.7 开启 MySQL 写入
-
-1. 创建数据库。
+### 8.4 开启 MySQL
 
 ```sql
 CREATE DATABASE crawler CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ```
 
-2. 执行迁移脚本。
-
 ```bash
 mysql -h 127.0.0.1 -u root -p crawler < migrations/mysql/001_create_rss_news.sql
 ```
 
-3. 修改 `.env`。
+然后 `MYSQL_ENABLED=1` 并填写 `MYSQL_*`，再运行 spider。这只写 `rss_news`，不会出现在 pipe-sight 的 `news_articles` 里。
 
-```dotenv
-MYSQL_ENABLED=1
-MYSQL_HOST=127.0.0.1
-MYSQL_PORT=3306
-MYSQL_DATABASE=crawler
-MYSQL_USER=root
-MYSQL_PASSWORD=your_password
-MYSQL_TABLE=rss_news
-```
+## 9. 站点覆盖与质量现状
 
-4. 运行 spider。
+150 个站点 spider 都是单文件、自包含脚本，直接继承 `scrapy.Spider`，不继承项目级基类。`site_type` / `source_category` 的分布是：
 
-```bash
-uv run python run_spider.py --spider example
-```
+| `site_type` | 站点数 | `source_category` |
+| --- | --- | --- |
+| `gov` | 75 | 政策机构 |
+| `tech` | 18 | 国外技术服务 |
+| `pipe` | 17 | 国际管道 |
+| `robot` | 7 | 机器人 |
+| `energy` | 6 | 新能源 |
+| `smart` | 6 | 智能化 |
+| `inspect` | 6 | 管道检测新技术有关专业网站 |
+| `elec` | 5 | 电气 |
+| `ip` | 4 | 知识产权与对外交流 |
+| `compressor` | 2 | 压缩机组相关 |
+| `standard` | 2 | 标准化管理 |
+| `pump` | 1 | 泵机组 |
+| `pipeline` | 1 | 管道技术 |
 
-### 6.8 Kafka → MySQL 消费
+抓取方式并不统一：一部分走列表/详情 XPath，一部分直连 sitemap.xml，6 个走 WordPress REST（`004`、`013`、`014`、`027`、`028`、`036`），`034_snam_it` 用 sitemap 加 AEM `.model.json`，`037_energytransfer_com` 用站内 JSON newsroom。正文 HTML 转 Markdown 用 `app/html_markdown.py`。
 
-把 Kafka topic 中的新闻消息消费并 upsert 到 MySQL `rss_news` 表（与 spider 共用同一套入库/去重逻辑，主键仍是 `url_hash`）。
+质量上还不能把 150 个 spider 当成都已验收：
 
-1. 修改 `.env`。
+- 125 个文件定义了 `LIST_ITEM_XPATH`。33 个写了站点选择器并在解析里使用；91 个在解析里读到的仍是空字符串，`_iter_links()` 于是退回页面上全部 `//a[@href]`，再用 `DETAIL_PATTERNS` 或「`.html` 且 URL 里带日期 / `content` / `art`」来猜详情页。`133_std_samr_gov_cn.py` 另有一处空字符串常量，解析函数不读它。
+- 52 个文件的 `DETAIL_CONTENT_XPATH`、53 个文件的 `DETAIL_PATTERNS` 仍是空元组，正文和详情判断主要靠文件里那组通用 XPath。
+- 121 个文件头仍写着「XPath 选择器为初始值，需按站点实际页面结构微调后再投入长期采集」。
+- `app/spiders/source_availability.py` 记录了探测时被反爬挡住或没有公开新闻源的站点名称。`run_spider.py` 不读这个文件，这些名字只要仍是 spider 就会进入默认清单。
 
-```dotenv
-KAFKA_BOOTSTRAP_SERVERS=172.16.4.182:9092
-KAFKA_TOPIC=news_pipeline
-KAFKA_GROUP_ID=news-pipelines-rss-consumer
-KAFKA_AUTO_OFFSET_RESET=earliest
-```
-
-同时保持 `MYSQL_ENABLED=1` 并配置好 MySQL 连接。
-
-2. 先 dry-run 预览映射结果（不写 MySQL、不提交 offset）。
+上线某个站点前，用小范围命令看 JSONL 里是否真有标题、时间和正文，而不是只看进程退出码：
 
 ```bash
-uv run python tools/kafka_consume.py --dry-run --max-messages 5
+uv run python run_spider.py --fresh --spider 059_nhc_gov_cn
+uv run python tools/verify_extract.py
+uv run python tools/verify_sources.py
 ```
 
-3. 正式消费。默认持续消费直到 Ctrl+C 退出；`--max-messages` 用于消费指定条数后退出。
+`verify_extract.py` 和 `verify_sources.py` 会访问外网，并把报告写到 `run_reports/`。
+
+## 10. 开发、测试与部署
+
+### 10.1 新增 spider
+
+1. 在 `app/spiders/` 增加 `NNN_<host>.py`，类继承 `scrapy.Spider`，`name` 唯一，并设置 `site_id`、`site_name`、`site_type`、`language`、`entry_url`、`section_urls`、`start_urls`。
+2. 站点差异放在该类的 `custom_settings`，不要改全局 `SPIDER_CONFIGS`。发现逻辑会把配置里的 `settings` 留空。
+3. 生成器 `tools/generate_xpath_spiders.py`、`generate_sitemap_spiders.py`、`generate_wp_spiders.py` 只负责产出初稿，生成后仍要按真实页面改选择器或接口。
 
 ```bash
-uv run python tools/kafka_consume.py
-uv run python tools/kafka_consume.py --max-messages 1000
+uv run scrapy list
+uv run python tools/validate_spider_configs.py --check-available
+uv run python run_spider.py --dry-run --spider <name>
 ```
 
-4. 可选：topic 不存在时自动创建。
+改入库字段时要同时改 `app/items.py`、`MySQLItemPipeline` 的列、`migrations/mysql/001_create_rss_news.sql`、`docs/database-contract.md` 和 `tests/test_mysql_pipeline.py`。`news_articles` 的列在 `NewsArticlesPipeline.COLUMNS`，表本身不由本仓库迁移。
 
-```bash
-uv run python tools/kafka_consume.py --ensure-topic --topic news_pipeline
-```
-
-消息按 JSON 解析，`ctime`（Unix 秒）会自动转换为 `publish_time`（`DATETIME(3)`），其余字段（`title`/`url`/`content`/`content_md`/`author`/`domain`/`image_url`/`site_name` 等）沿用 MySQL 管线的清洗与 hash 规则。offset 只在对应批次成功落库后提交，崩溃重跑不会丢数据（at-least-once）。
-
-### 6.9 常见问题
-
-`scrapy list` 找不到 spider：
-
-- 确认 spider 文件位于 `app/spiders/`。
-- 确认 spider 类继承 `scrapy.Spider`，并设置唯一 `name`。
-- 确认 `scrapy.cfg` 的 default settings 是 `app.settings`。
-
-`run_spider.py --dry-run` 提示未选中 spider：
-
-- 确认 `SPIDER_RUN_NAMES` 中的 name 已在 `SPIDER_CONFIGS` 配置。
-- 临时允许空运行可使用 `--allow-empty`，但生产调度不建议这样做。
-
-MySQL 写入失败：
-
-- 确认 `MYSQL_ENABLED=1`。
-- 确认表结构已按 `migrations/mysql/001_create_rss_news.sql` 创建。
-- 查看 `run_reports/mysql_dead_letters/` 是否有失败批次。
-- 生产环境可以设置 `MYSQL_RETRY_TIMES=2`，处理连接闪断、deadlock、lock wait timeout 等 transient 错误。
-
-spider-monitor 上报失败：
-
-- 本地可保持 `SPIDER_MONITOR_ENDPOINT=`。
-- 非本地环境中，`SPIDER_MONITOR_ENDPOINT` 必须是 HTTPS。
-- 如需要严格失败策略，设置 `SPIDER_MONITOR_FAIL_ON_ERROR=1`。
-
-## 7. 开发流程与规范
-
-### 7.1 分支管理
-
-建议采用：
-
-- `main`：可运行、可发布分支。
-- `feature/<topic>`：新增 spider、能力扩展。
-- `fix/<topic>`：缺陷修复。
-- `docs/<topic>`：文档调整。
-
-合并前至少通过本地测试与配置校验。
-
-### 7.2 代码规范
-
-- 入口脚本保持薄：`run_spider.py` 只维护运行清单、CLI 参数和调度入口。
-- 可复用逻辑放入 `app/` 包内，不放在 `tools/` 或 spider 文件里。
-- 新 spider 只写站点解析逻辑；通用清洗、去重、入库逻辑放 pipeline。
-- 本地环境差异放 `.env`，不要硬编码数据库密码、监控 endpoint、代理等敏感配置。
-- `scrapy.cfg` 保持 ASCII 注释，避免 Windows 中文系统编码导致 Scrapy 解析失败。
-
-### 7.3 测试与检查
-
-常规检查：
+### 10.2 检查命令
 
 ```bash
 uv run python -m unittest discover -s tests -v
 uv run python -m compileall run_spider.py app tools tests
 uv run python tools/validate_spider_configs.py --check-available
 uv run python run_spider.py --dry-run
-```
-
-Lint 与依赖审计：
-
-```bash
 uv run --with ruff ruff check run_spider.py app tools tests
 uv run --with pip-audit pip-audit
 ```
 
-新增或重命名 spider 后：
+现有测试覆盖配置发现与校验、spider 选择、JOBDIR、SSRF 中间件、URL hash、MySQL pipeline、`NewsArticlesPipeline`、Kafka 消费者和 source gate。
 
-```bash
-uv run python tools/build_spider_configs.py
-uv run python tools/validate_spider_configs.py --check-available
-```
-
-### 7.4 提交规范
-
-推荐使用清晰的 Conventional Commits 风格：
-
-```text
-feat(spider): add example source crawler
-fix(pipeline): handle invalid publish_time as null
-test(runtime): cover empty spider selection
-docs(readme): add deployment guide
-chore(ci): add dependency audit
-```
-
-### 7.5 测试覆盖建议
-
-已有测试覆盖：
-
-- spider 配置生成与校验
-- `run_spider.py` 选择逻辑与 `JOBDIR` 模式
-- downloader middleware SSRF 防护
-- item 去重 hash
-- MySQL pipeline
-- spider-monitor extension
-
-新增共享逻辑时优先补单元测试；新增 spider 时至少保留样例 HTML 或解析断言，避免目标站点变化后无法定位问题。
-
-## 8. 部署方式
-
-### 8.1 Docker 部署
-
-构建镜像：
+### 10.3 Docker 与定时任务
 
 ```bash
 docker build -t scrapy-template:local .
-```
-
-运行 dry-run：
-
-```bash
 docker run --rm scrapy-template:local python run_spider.py --dry-run
 ```
 
-挂载本地配置与运行目录：
+镜像 `CMD` 是 `python run_spider.py`，不带参数时会跑默认的 150 个 spider。挂载本地状态：
 
 ```bash
 docker run --rm \
@@ -651,210 +552,46 @@ docker run --rm \
   python run_spider.py --spider example
 ```
 
-Windows PowerShell 示例：
-
-```powershell
-docker run --rm `
-  --env-file .env `
-  -v "${PWD}\run_state:/app/run_state" `
-  -v "${PWD}\run_reports:/app/run_reports" `
-  scrapy-template:local `
-  python run_spider.py --spider example
-```
-
-镜像特性：
-
-- 基于 `python:3.12-slim`。
-- 使用 `uv sync --locked --no-dev` 安装生产依赖。
-- 使用非 root 用户 `appuser` 运行。
-- 将 `/app/run_state` 与 `/app/run_reports` 声明为 volume。
-
-### 8.2 服务器定时任务
+`/app/run_state` 和 `/app/run_reports` 是 volume。依赖安装命令是 `uv sync --locked --no-dev`。
 
 示例 crontab：
 
 ```cron
-0 * * * * cd /opt/app && /usr/local/bin/uv run python run_spider.py --stop-on-failure >> run_reports/cron.log 2>&1
+0 * * * * cd /path/to/news-pipelines && /usr/local/bin/uv run python run_spider.py --stop-on-failure >> run_reports/cron.log 2>&1
 ```
 
-建议：
+CI 在 Windows 和 Ubuntu 上执行 `uv sync --locked`、ruff、pip-audit、unittest、compileall、配置校验和 `--dry-run`。
 
-- `.env` 放在服务器安全路径或项目根目录，权限限制为运行用户可读。
-- `run_state/` 和 `run_reports/` 放在持久化磁盘。
-- 生产环境设置 `SPIDER_MONITOR_ENV=prod`，并使用 HTTPS endpoint。
+## 11. 已知缺口
 
-### 8.3 CI/CD
+- 没有 Kafka producer。抓取结果到不了 `news_pipeline`，pipe-sight 也看不到这次抓取写进 `news_articles`。
+- `PG_ENABLED` 不把 `NewsArticlesPipeline` 接到 Scrapy。它只放行 `tools/kafka_consume.py`。
+- 消费者和 pipe-sight 若同时写 `news_articles`，以及消费者自动插入 `adapter='kafka'` 的 `data_sources`，会和 `news_pipelines_spider` 种子行分叉。见第 7.3 节。
+- 91 个 XPath spider 的列表选择器仍是空的，121 个文件仍标明选择器是初始值。默认全量跑会包含这些站。
+- `pyproject.toml` 的包名还是 `scrapy-template`；Kafka group 默认名还是 `news-pipelines-rss-consumer`。
+- `docs/project-overview.md` 没有跟上 source gate 和 Kafka 消费者。
 
-当前 GitHub Actions 会在 Windows 和 Ubuntu 上执行：
-
-- 安装 uv 与 Python 3.12。
-- `uv sync --locked`
-- `ruff check`
-- `pip-audit`
-- `unittest`
-- `compileall`
-- spider 配置校验
-- `run_spider.py --dry-run`
-
-后续如果要发布镜像，建议在 CI 中追加 Docker build 与镜像扫描步骤。
-
-## 9. 扩展与定制指南
-
-### 9.1 新增 spider
-
-1. 新建文件：
-
-```text
-app/spiders/<name>.py
-```
-
-2. 编写 spider：
-
-```python
-import scrapy
-
-from app.items import ScrapyTemplateItem
-
-
-class NewsSpider(scrapy.Spider):
-    name = "news"
-    allowed_domains = ["example.com"]
-    start_urls = ["https://example.com/news"]
-
-    def parse(self, response):
-        item = ScrapyTemplateItem()
-        item["title"] = response.css("h1::text").get()
-        item["url"] = response.url
-        item["source_site"] = "example"
-        yield item
-```
-
-3. 无需手工改配置：`run_spider.py` 通过 `discover_spider_configs()` 自动发现新 spider，`SPIDER_CONFIGS` 与 `SPIDER_RUN_NAMES` 随 `scrapy list` 动态生成。
-
-4. 校验：
+## 附录：常用命令
 
 ```bash
-uv run scrapy list
-uv run python tools/validate_spider_configs.py --check-available
-uv run python run_spider.py --dry-run
-```
-
-### 9.2 为单个 spider 定制设置
-
-`SPIDER_CONFIGS` 现已自动发现，`settings` 字段默认留空。站点级差异直接写在 spider 自身的 `custom_settings` 类属性里（每个扁平 spider 都自带）：
-
-```python
-custom_settings = {
-    "DOWNLOAD_DELAY": 1.0,
-    "CONCURRENT_REQUESTS_PER_DOMAIN": 4,
-    "SSRF_ALLOWED_HOSTS": ["example.com", "*.example.com"],
-}
-```
-
-也可以在运行时临时覆盖：
-
-```bash
-uv run python run_spider.py --spider news --setting DOWNLOAD_DELAY=2
-```
-
-### 9.3 扩展 item 字段
-
-如果要增加字段：
-
-1. 在 `app/items.py` 增加字段。
-2. 如果需要入库，在 `MySQLItemPipeline.COLUMNS` 增加字段。
-3. 更新 `migrations/mysql/001_create_rss_news.sql`。
-4. 更新 `docs/database-contract.md`。
-5. 补充或更新 `tests/test_mysql_pipeline.py`。
-
-### 9.4 定制去重规则
-
-默认去重规则位于 `item_deduplication.py`：
-
-- `canonicalize_url()` 负责 URL 规范化。
-- `DEFAULT_DROP_QUERY_PARAMS` 负责剔除通用追踪参数。
-- `item_hashes()` 负责生成 `url_hash` 与 `content_hash`。
-
-如果目标站点的 URL 参数有业务含义，不要盲目加入全局 drop 列表；优先在具体 spider 中输出正确的 `canonical_url`。
-
-### 9.5 定制质量阈值
-
-通过 `.env` 配置：
-
-```dotenv
-SPIDER_MONITOR_MIN_ITEMS=10
-SPIDER_MONITOR_MAX_DROPPED=0
-SPIDER_MONITOR_MAX_SPIDER_ERRORS=0
-SPIDER_MONITOR_MAX_DB_ERRORS=0
-SPIDER_MONITOR_FAIL_ON_QUALITY_ERROR=1
-```
-
-如果需要新增质量规则，修改 `app/monitors/quality_rules.py` 并补充测试。
-
-### 9.6 接入代理、登录或复杂反爬
-
-建议按层放置逻辑：
-
-- 站点解析和请求入口：spider 文件。
-- 通用 headers、retry、throttle：`settings.py`。
-- 通用请求改写、代理、下载前校验：downloader middleware。
-- JS 逆向、签名、验证码等本地辅助资料可放在私有工具链，不应污染核心运行层。
-
-## 10. TODO / 后续计划
-
-从当前代码结构可以推断，下一阶段建议优先做这些改进：
-
-- 为 `runtime/runner.py` 的 `RunSummary` 增加直接单元测试，覆盖成功、失败、timeout、summary JSON。
-- 为 `settings.py` 的浮点环境变量增加与 `_env_int` 一致的校验函数，例如 `MYSQL_RETRY_BACKOFF_SECONDS`。
-- 增加数据库契约测试，确保 `MySQLItemPipeline.COLUMNS` 与 `migrations/mysql/001_create_rss_news.sql` 字段一致。
-- 在 CI 中加入 Docker build 步骤，避免 Dockerfile 长期无人验证。
-- 为新增 spider 建立解析样例测试，降低目标站点 HTML 变化带来的维护成本。
-- 根据生产数据量评估是否引入任务队列、分布式调度或集中式日志。
-
-## 附录：常用命令速查
-
-```bash
-# 安装依赖
 uv sync
-
-# 列出 Scrapy spider
 uv run scrapy list
-
-# 校验配置
 uv run python tools/validate_spider_configs.py --check-available
-
-# dry-run
 uv run python run_spider.py --dry-run
-
-# 运行默认清单
-uv run python run_spider.py
-
-# 运行指定 spider
 uv run python run_spider.py --spider example
-
-# 重新开始
-uv run python run_spider.py --fresh --spider example
-
-# 测试
+uv run python run_spider.py --limit 5 --offset 0
+uv run python tools/seed_data_sources.py --dry-run
+uv run python tools/kafka_consume.py --dry-run --max-messages 5
 uv run python -m unittest discover -s tests -v
-
-# 编译检查
 uv run python -m compileall run_spider.py app tools tests
-
-# lint
 uv run --with ruff ruff check run_spider.py app tools tests
-
-# 依赖安全审计
-uv run --with pip-audit pip-audit
-
-# Docker
 docker build -t scrapy-template:local .
 docker run --rm scrapy-template:local python run_spider.py --dry-run
 ```
 
 ## 参考文档
 
-- [架构补充](docs/project-overview.md)
 - [数据库契约](docs/database-contract.md)
+- [架构补充](docs/project-overview.md)（模块图早于当前门控和 Kafka 消费者）
 - [MCP 使用说明](docs/mcp-usage.md)
 - [Agent 项目规则](AGENTS.md)
