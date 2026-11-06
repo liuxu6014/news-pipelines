@@ -1,0 +1,45 @@
+name: test
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [windows-latest, ubuntu-latest]
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v6
+
+      - name: Set up Python
+        run: uv python install 3.12
+
+      - name: Install dependencies
+        run: uv sync --locked
+
+      - name: Lint
+        run: uv run --with ruff ruff check run_spider.py app tools tests
+
+      - name: Dependency audit
+        run: uv run --with pip-audit pip-audit
+
+      - name: Run unit tests
+        run: uv run python -m unittest discover -s tests -v
+
+      - name: Compile check
+        run: uv run python -m compileall run_spider.py app tools tests
+
+      - name: Validate spider config
+        run: uv run python tools/validate_spider_configs.py --check-available
+
+      - name: Dry run
+        run: uv run python run_spider.py --dry-run

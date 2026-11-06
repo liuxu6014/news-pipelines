@@ -1,0 +1,1688 @@
+[
+ {
+  "spider": "001_compressor_cn",
+  "file": "app/spiders/001_compressor_cn.py",
+  "source_name": "compressor.cn",
+  "category": "压缩机组相关",
+  "host": "compressor.cn",
+  "start_urls": [
+   "http://www.compressor.cn/"
+  ],
+  "enriched": false
+ },
+ {
+  "spider": "002_cp_cgmia_org_cn",
+  "file": "app/spiders/002_cp_cgmia_org_cn.py",
+  "source_name": "cp.cgmia.org.cn",
+  "category": "压缩机组相关",
+  "host": "cp.cgmia.org.cn",
+  "start_urls": [
+   "https://cp.cgmia.org.cn/"
+  ],
+  "enriched": false
+ },
+ {
+  "spider": "003_cbmm_com",
+  "file": "app/spiders/003_cbmm_com.py",
+  "source_name": "CBMM Technology Suisse SA",
+  "category": "国外技术服务",
+  "host": "cbmm.com",
+  "start_urls": [
+   "https://cbmm.com/"
+  ],
+  "enriched": false
+ },
+ {
+  "spider": "004_cooperservices_com",
+  "file": "app/spiders/004_cooperservices_com.py",
+  "source_name": "Cooper Machinery Services",
+  "category": "国外技术服务",
+  "host": "cooperservices.com",
+  "start_urls": [
+   "https://www.cooperservices.com/"
+  ],
+  "enriched": false
+ },
+ {
+  "spider": "005_cybernetix_fr",
+  "file": "app/spiders/005_cybernetix_fr.py",
+  "source_name": "Cybernetix",
+  "category": "国外技术服务",
+  "host": "cybernetix.fr",
+  "start_urls": [
+   "http://www.cybernetix.fr/en/"
+  ],
+  "enriched": false
+ },
+ {
+  "spider": "006_dnv_com",
+  "file": "app/spiders/006_dnv_com.py",
+  "source_name": "DNV",
+  "category": "国外技术服务",
+  "host": "dnv.com",
+  "start_urls": [
+   "https://www.dnv.com"
+  ],
+  "enriched": false
+ },
+ {
+  "spider": "007_emersonprocess_com",
+  "file": "app/spiders/007_emersonprocess_com.py",
+  "source_name": "Emerson Process Management",
+  "category": "国外技术服务",
+  "host": "emersonprocess.com",
+  "start_urls": [
+   "http://www.emersonprocess.com"
+  ],
+  "enriched": false
+ },
+ {
+  "spider": "008_us_endress_com",
+  "file": "app/spiders/008_us_endress_com.py",
+  "source_name": "Endress+Hauser",
+  "category": "国外技术服务",
+  "host": "us.endress.com",
+  "start_urls": [
+   "http://www.us.endress.com"
+  ],
+  "enriched": false
+ },
+ {
+  "spider": "009_enduropls_com",
+  "file": "app/spiders/009_enduropls_com.py",
+  "source_name": "Enduro Pipeline Services, Inc.",
+  "category": "国外技术服务",
+  "host": "enduropls.com",
+  "start_urls": [
+   "http://www.enduropls.com"
+  ],
+  "enriched": false
+ },
+ {
+  "spider": "010_evraz_com",
+  "file": "app/spiders/010_evraz_com.py",
+  "source_name": "Evraz North America",
+  "category": "国外技术服务",
+  "host": "evraz.com",
+  "start_urls": [
+   "http://www.evraz.com"
+  ],
+  "enriched": false
+ },
+ {
+  "spider": "011_jfe_steel_co_jp",
+  "file": "app/spiders/011_jfe_steel_co_jp.py",
+  "source_name": "JFE Steel Corporation",
+  "category": "国外技术服务",
+  "host": "jfe-steel.co.jp",
+  "start_urls": [
+   "http://www.jfe-steel.co.jp/en/index.html"
+  ],
+  "enriched": false
+ },
+ {
+  "spider": "012_krohne_com",
+  "file": "app/spiders/012_krohne_com.py",
+  "source_name": "KROHNE, Inc.",
+  "category": "国外技术服务",
+  "host": "krohne.com",
+  "start_urls": [
+   "http://www.krohne.com"
+  ],
+  "enriched": false
+ },
+ {
+  "spider": "013_mears_net",
+  "file": "app/spiders/013_mears_net.py",
+  "source_name": "Mears Group, Inc.",
+  "category": "国外技术服务",
+  "host": "mears.net",
+  "start_urls": [
+   "https://mears.net/division/pipeline-integrity/"
+  ],
+  "enriched": false
+ },
+ {
+  "spider": "014_previan_com",
+  "file": "app/spiders/014_previan_com.py",
+  "source_name": "Previan",
+  "category": "国外技术服务",
+  "host": "previan.com",
+  "start_urls": [
+   "https://previan.com/"
+  ],
+  "enriched": false
+ },
+ {
+  "spider": "015_rmg_com",
+  "file": "app/spiders/015_rmg_com.py",
+  "source_name": "RMG Messtechnik GmbH",
+  "category": "国外技术服务",
+  "host": "rmg.com",
+  "start_urls": [
+   "https://www.rmg.com/"
+  ],
+  "enriched": false
+ },
+ {
+  "spider": "016_statsgroup_com",
+  "file": "app/spiders/016_statsgroup_com.py",
+  "source_name": "STATS Group",
+  "category": "国外技术服务",
+  "host": "statsgroup.com",
+  "start_urls": [
+   "http://statsgroup.com"
+  ],
+  "enriched": false
+ },
+ {
+  "spider": "017_siemens_energy_com",
+  "file": "app/spiders/017_siemens_energy_com.py",
+  "source_name": "Siemens Energy Inc.",
+  "category": "国外技术服务",
+  "host": "siemens-energy.com",
+  "start_urls": [
+   "https://www.siemens-energy.com/global/en.html"
+  ],
+  "enriched": false
+ },
+ {
+  "spider": "018_technipfmc_com",
+  "file": "app/spiders/018_technipfmc_com.py",
+  "source_name": "TechnipFMC",
+  "category": "国外技术服务",
+  "host": "technipfmc.com",
+  "start_urls": [
+   "https://www.technipfmc.com/"
+  ],
+  "enriched": false
+ },
+ {
+  "spider": "019_roseninspection_net",
+  "file": "app/spiders/019_roseninspection_net.py",
+  "source_name": "The ROSEN Group",
+  "category": "国外技术服务",
+  "host": "roseninspection.net",
+  "start_urls": [
+   "http://www.roseninspection.net"
+  ],
+  "enriched": false
+ },
+ {
+  "spider": "020_worley_com",
+  "file": "app/spiders/020_worley_com.py",
+  "source_name": "Worley Group",
+  "category": "国外技术服务",
+  "host": "worley.com",
+  "start_urls": [
+   "https://www.worley.com/"
+  ],
+  "enriched": false
+ },
+ {
+  "spider": "021_apa_com_au",
+  "file": "app/spiders/021_apa_com_au.py",
+  "source_name": "APA Group",
+  "category": "国际管道",
+  "host": "apa.com.au",
+  "start_urls": [
+   "https://www.apa.com.au/"
+  ],
+  "enriched": false
+ },
+ {
+  "spider": "022_colpipe_com",
+  "file": "app/spiders/022_colpipe_com.py",
+  "source_name": "Colonial Pipeline",
+  "category": "国际管道",
+  "host": "colpipe.com",
+  "start_urls": [
+   "https://www.colpipe.com/"
+  ],
+  "enriched": false
+ },
+ {
+  "spider": "023_enbridge_com",
+  "file": "app/spiders/023_enbridge_com.py",
+  "source_name": "Enbridge Inc",
+  "category": "国际管道",
+  "host": "enbridge.com",
+  "start_urls": [
+   "https://www.enbridge.com/"
+  ],
+  "enriched": false
+ },
+ {
+  "spider": "024_fluxys_com",
+  "file": "app/spiders/024_fluxys_com.py",
+  "source_name": "Fluxys Belgium SA",
+  "category": "国际管道",
+  "host": "fluxys.com",
+  "start_urls": [
+   "https://www.fluxys.com/en#/"
+  ],
+  "enriched": false
+ },
+ {
+  "spider": "025_gailonline_com",
+  "file": "app/spiders/025_gailonline_com.py",
+  "source_name": "GAIL (India) -Gas Transmission",
+  "category": "国际管道",
+  "host": "gailonline.com",
+  "start_urls": [
+   "https://gailonline.com/"
+  ],
+  "enriched": false
+ },
+ {
+  "spider": "026_natrangroupe_com",
+  "file": "app/spiders/026_natrangroupe_com.py",
+  "source_name": "GRTgaz",
+  "category": "国际管道",
+  "host": "natrangroupe.com",
+  "start_urls": [
+   "https://www.natrangroupe.com/"
+  ],
+  "enriched": false
+ },
+ {
+  "spider": "027_gasgrid_fi",
+  "file": "app/spiders/027_gasgrid_fi.py",
+  "source_name": "Gasgrid Finland",
+  "category": "国际管道",
+  "host": "gasgrid.fi",
+  "start_urls": [
+   "https://gasgrid.fi/en/"
+  ],
+  "enriched": false
+ },
+ {
+  "spider": "028_gassco_eu",
+  "file": "app/spiders/028_gassco_eu.py",
+  "source_name": "Gassco",
+  "category": "国际管道",
+  "host": "gassco.eu",
+  "start_urls": [
+   "https://gassco.eu/en/home/"
+  ],
+  "enriched": false
+ },
+ {
+  "spider": "029_gasunie_nl",
+  "file": "app/spiders/029_gasunie_nl.py",
+  "source_name": "Gasunie",
+  "category": "国际管道",
+  "host": "gasunie.nl",
+  "start_urls": [
+   "https://www.gasunie.nl/en"
+  ],
+  "enriched": false
+ },
+ {
+  "spider": "030_gazprom_com",
+  "file": "app/spiders/030_gazprom_com.py",
+  "source_name": "Gazprom",
+  "category": "国际管道",
+  "host": "gazprom.com",
+  "start_urls": [
+   "https://www.gazprom.com/"
+  ],
+  "enriched": false
+ },
+ {
+  "spider": "031_kindermorgan_com",
+  "file": "app/spiders/031_kindermorgan_com.py",
+  "source_name": "Kinder Morgan Inc",
+  "category": "国际管道",
+  "host": "kindermorgan.com",
+  "start_urls": [
+   "http://www.kindermorgan.com/"
+  ],
+  "enriched": false
+ },
+ {
+  "spider": "032_nationalgas_com",
+  "file": "app/spiders/032_nationalgas_com.py",
+  "source_name": "National Grid Gas plc",
+  "category": "国际管道",
+  "host": "nationalgas.com",
+  "start_urls": [
+   "https://www.nationalgas.com/"
+  ],
+  "enriched": false
+ },
+ {
+  "spider": "033_oneok_com",
+  "file": "app/spiders/033_oneok_com.py",
+  "source_name": "ONEOK",
+  "category": "国际管道",
+  "host": "oneok.com",
+  "start_urls": [
+   "https://www.oneok.com/"
+  ],
+  "enriched": false
+ },
+ {
+  "spider": "034_snam_it",
+  "file": "app/spiders/034_snam_it.py",
+  "source_name": "Snam SpA",
+  "category": "国际管道",
+  "host": "snam.it",
+  "start_urls": [
+   "https://www.snam.it/en/home.html"
+  ],
+  "enriched": false
+ },
+ {
+  "spider": "035_tcenergy_com",
+  "file": "app/spiders/035_tcenergy_com.py",
+  "source_name": "TC Energy Corp",
+  "category": "国际管道",
+  "host": "tcenergy.com",
+  "start_urls": [
+   "https://www.tcenergy.com/"
+  ],
+  "enriched": false
+ },
+ {
+  "spider": "036_williams_com",
+  "file": "app/spiders/036_williams_com.py",
+  "source_name": "Williams Cos Inc",
+  "category": "国际管道",
+  "host": "williams.com",
+  "start_urls": [
+   "https://www.williams.com/"
+  ],
+  "enriched": false
+ },
+ {
+  "spider": "037_energytransfer_com",
+  "file": "app/spiders/037_energytransfer_com.py",
+  "source_name": "energy transfer",
+  "category": "国际管道",
+  "host": "energytransfer.com",
+  "start_urls": [
+   "https://www.energytransfer.com/"
+  ],
+  "enriched": false
+ },
+ {
+  "spider": "038_gzw_sh_gov_cn",
+  "file": "app/spiders/038_gzw_sh_gov_cn.py",
+  "source_name": "上海市国有资产监督管理委员会",
+  "category": "政策机构",
+  "host": "gzw.sh.gov.cn",
+  "start_urls": [
+   "https://www.gzw.sh.gov.cn/"
+  ],
+  "enriched": false
+ },
+ {
+  "spider": "039_pbc_gov_cn",
+  "file": "app/spiders/039_pbc_gov_cn.py",
+  "source_name": "中国人民银行",
+  "category": "政策机构",
+  "host": "pbc.gov.cn",
+  "start_urls": [
+   "http://www.pbc.gov.cn/"
+  ],
+  "enriched": false
+ },
+ {
+  "spider": "040_npc_gov_cn",
+  "file": "app/spiders/040_npc_gov_cn.py",
+  "source_name": "中国共产党历次全国代表大会",
+  "category": "政策机构",
+  "host": "npc.gov.cn",
+  "start_urls": [
+   "http://www.npc.gov.cn/"
+  ],
+  "enriched": false
+ },
+ {
+  "spider": "041_cea_gov_cn",
+  "file": "app/spiders/041_cea_gov_cn.py",
+  "source_name": "中国地震局",
+  "category": "政策机构",
+  "host": "cea.gov.cn",
+  "start_urls": [
+   "https://www.cea.gov.cn/"
+  ],
+  "enriched": false
+ },
+ {
+  "spider": "042_cma_gov_cn",
+  "file": "app/spiders/042_cma_gov_cn.py",
+  "source_name": "中国气象局",
+  "category": "政策机构",
+  "host": "cma.gov.cn",
+  "start_urls": [
+   "https://www.cma.gov.cn/",
+   "https://www.cma.gov.cn/2011xwzx/2011xqxxw/2011xqxyw/"
+  ],
+  "enriched": false
+ },
+ {
+  "spider": "043_csrc_gov_cn",
+  "file": "app/spiders/043_csrc_gov_cn.py",
+  "source_name": "中国证券监督管理委员会",
+  "category": "政策机构",
+  "host": "csrc.gov.cn",
+  "start_urls": [
+   "http://www.csrc.gov.cn/"
+  ],
+  "enriched": false
+ },
+ {
+  "spider": "044_gzw_yn_gov_cn",
+  "file": "app/spiders/044_gzw_yn_gov_cn.py",
+  "source_name": "云南省国有资产监督管理委员会",
+  "category": "政策机构",
+  "host": "gzw.yn.gov.cn",
+  "start_urls": [
+   "https://gzw.yn.gov.cn/"
+  ],
+  "enriched": false
+ },
+ {
+  "spider": "045_xxgk_mot_gov_cn",
+  "file": "app/spiders/045_xxgk_mot_gov_cn.py",
+  "source_name": "交通运输部",
+  "category": "政策机构",
+  "host": "xxgk.mot.gov.cn",
+  "start_urls": [
+   "https://xxgk.mot.gov.cn/"
+  ],
+  "enriched": false
+ },
+ {
+  "spider": "046_mohurd_gov_cn",
+  "file": "app/spiders/046_mohurd_gov_cn.py",
+  "source_name": "住房和城乡建设部",
+  "category": "政策机构",
+  "host": "mohurd.gov.cn",
+  "start_urls": [
+   "https://www.mohurd.gov.cn/"
+  ],
+  "enriched": false
+ },
+ {
+  "spider": "047_app_mps_gov_cn",
+  "file": "app/spiders/047_app_mps_gov_cn.py",
+  "source_name": "公安部",
+  "category": "政策机构",
+  "host": "app.mps.gov.cn",
+  "start_urls": [
+   "https://app.mps.gov.cn/"
+  ],
+  "enriched": false
+ },
+ {
+  "spider": "048_gzw_nmg_gov_cn",
+  "file": "app/spiders/048_gzw_nmg_gov_cn.py",
+  "source_name": "内蒙古自治区国有资产监督管理委员会",
+  "category": "政策机构",
+  "host": "gzw.nmg.gov.cn",
+  "start_urls": [
+   "http://gzw.nmg.gov.cn/"
+  ],
+  "enriched": false
+ },
+ {
+  "spider": "049_moa_gov_cn",
+  "file": "app/spiders/049_moa_gov_cn.py",
+  "source_name": "农业农村部",
+  "category": "政策机构",
+  "host": "moa.gov.cn",
+  "start_urls": [
+   "http://www.moa.gov.cn/"
+  ],
+  "enriched": false
+ },
+ {
+  "spider": "050_gzw_beijing_gov_cn",
+  "file": "app/spiders/050_gzw_beijing_gov_cn.py",
+  "source_name": "北京市国有资产监督管理委员会",
+  "category": "政策机构",
+  "host": "gzw.beijing.gov.cn",
+  "start_urls": [
+   "https://gzw.beijing.gov.cn/"
+  ],
+  "enriched": false
+ },
+ {
+  "spider": "051_moj_gov_cn",
+  "file": "app/spiders/051_moj_gov_cn.py",
+  "source_name": "司法部",
+  "category": "政策机构",
+  "host": "moj.gov.cn",
+  "start_urls": [
+   "https://www.moj.gov.cn/"
+  ],
+  "enriched": false
+ },
+ {
+  "spider": "052_gzw_jl_gov_cn",
+  "file": "app/spiders/052_gzw_jl_gov_cn.py",
+  "source_name": "吉林省国有资产监督管理委员会",
+  "category": "政策机构",
+  "host": "gzw.jl.gov.cn",
+  "start_urls": [
+   "http://gzw.jl.gov.cn/"
+  ],
+  "enriched": false
+ },
+ {
+  "spider": "053_mofcom_gov_cn",
+  "file": "app/spiders/053_mofcom_gov_cn.py",
+  "source_name": "商务部",
+  "category": "政策机构",
+  "host": "mofcom.gov.cn",
+  "start_urls": [
+   "http://www.mofcom.gov.cn/"
+  ],
+  "enriched": false
+ },
+ {
+  "spider": "054_gzw_sc_gov_cn",
+  "file": "app/spiders/054_gzw_sc_gov_cn.py",
+  "source_name": "四川省国有资产监督管理委员会",
+  "category": "政策机构",
+  "host": "gzw.sc.gov.cn",
+  "start_urls": [
+   "http://gzw.sc.gov.cn/"
+  ],
+  "enriched": false
+ },
+ {
+  "spider": "055_gov_cn",
+  "file": "app/spiders/055_gov_cn.py",
+  "source_name": "国务院",
+  "category": "政策机构",
+  "host": "gov.cn",
+  "start_urls": [
+   "https://www.gov.cn/"
+  ],
+  "enriched": false
+ },
+ {
+  "spider": "056_sasac_gov_cn",
+  "file": "app/spiders/056_sasac_gov_cn.py",
+  "source_name": "国务院国资委",
+  "category": "政策机构",
+  "host": "sasac.gov.cn",
+  "start_urls": [
+   "http://www.sasac.gov.cn/"
+  ],
+  "enriched": false
+ },
+ {
+  "spider": "057_gjbmj_gov_cn",
+  "file": "app/spiders/057_gjbmj_gov_cn.py",
+  "source_name": "国家保密局",
+  "category": "政策机构",
+  "host": "gjbmj.gov.cn",
+  "start_urls": [
+   "https://www.gjbmj.gov.cn/"
+  ],
+  "enriched": false
+ },
+ {
+  "spider": "058_nhsa_gov_cn",
+  "file": "app/spiders/058_nhsa_gov_cn.py",
+  "source_name": "国家医疗保障局",
+  "category": "政策机构",
+  "host": "nhsa.gov.cn",
+  "start_urls": [
+   "http://www.nhsa.gov.cn/"
+  ],
+  "enriched": false
+ },
+ {
+  "spider": "059_nhc_gov_cn",
+  "file": "app/spiders/059_nhc_gov_cn.py",
+  "source_name": "国家卫生健康委员会",
+  "category": "政策机构",
+  "host": "nhc.gov.cn",
+  "start_urls": [
+   "http://www.nhc.gov.cn/"
+  ],
+  "enriched": false
+ },
+ {
+  "spider": "060_ndrc_gov_cn",
+  "file": "app/spiders/060_ndrc_gov_cn.py",
+  "source_name": "国家发展和改革委员会",
+  "category": "政策机构",
+  "host": "ndrc.gov.cn",
+  "start_urls": [
+   "https://www.ndrc.gov.cn/"
+  ],
+  "enriched": false
+ },
+ {
+  "spider": "061_forestry_gov_cn",
+  "file": "app/spiders/061_forestry_gov_cn.py",
+  "source_name": "国家国防科技工业局",
+  "category": "政策机构",
+  "host": "forestry.gov.cn",
+  "start_urls": [
+   "https://www.forestry.gov.cn/"
+  ],
+  "enriched": false
+ },
+ {
+  "spider": "062_cidca_gov_cn",
+  "file": "app/spiders/062_cidca_gov_cn.py",
+  "source_name": "国家国际发展合作署",
+  "category": "政策机构",
+  "host": "cidca.gov.cn",
+  "start_urls": [
+   "http://www.cidca.gov.cn/"
+  ],
+  "enriched": false
+ },
+ {
+  "spider": "063_safe_gov_cn",
+  "file": "app/spiders/063_safe_gov_cn.py",
+  "source_name": "国家外汇管理局",
+  "category": "政策机构",
+  "host": "safe.gov.cn",
+  "start_urls": [
+   "http://www.safe.gov.cn/"
+  ],
+  "enriched": false
+ },
+ {
+  "spider": "064_nppa_gov_cn",
+  "file": "app/spiders/064_nppa_gov_cn.py",
+  "source_name": "国家新闻出版署（国家版权局）",
+  "category": "政策机构",
+  "host": "nppa.gov.cn",
+  "start_urls": [
+   "https://www.nppa.gov.cn/"
+  ],
+  "enriched": false
+ },
+ {
+  "spider": "065_gkml_ggj_gov_cn",
+  "file": "app/spiders/065_gkml_ggj_gov_cn.py",
+  "source_name": "国家机关事务管理局",
+  "category": "政策机构",
+  "host": "gkml.ggj.gov.cn",
+  "start_urls": [
+   "https://gkml.ggj.gov.cn/",
+   "https://www.ggj.gov.cn/xwzx/",
+   "https://www.ggj.gov.cn/xwzx/ggjxw/",
+   "https://www.ggj.gov.cn/xwzx/gzdt/"
+  ],
+  "enriched": false
+ },
+ {
+  "spider": "066_saac_gov_cn",
+  "file": "app/spiders/066_saac_gov_cn.py",
+  "source_name": "国家档案局",
+  "category": "政策机构",
+  "host": "saac.gov.cn",
+  "start_urls": [
+   "https://www.saac.gov.cn/"
+  ],
+  "enriched": false
+ },
+ {
+  "spider": "067_neac_gov_cn",
+  "file": "app/spiders/067_neac_gov_cn.py",
+  "source_name": "国家民族事务委员会",
+  "category": "政策机构",
+  "host": "neac.gov.cn",
+  "start_urls": [
+   "https://www.neac.gov.cn/"
+  ],
+  "enriched": false
+ },
+ {
+  "spider": "068_chinatax_gov_cn",
+  "file": "app/spiders/068_chinatax_gov_cn.py",
+  "source_name": "国家税务总局",
+  "category": "政策机构",
+  "host": "chinatax.gov.cn",
+  "start_urls": [
+   "https://www.chinatax.gov.cn/"
+  ],
+  "enriched": false
+ },
+ {
+  "spider": "069_lswz_gov_cn",
+  "file": "app/spiders/069_lswz_gov_cn.py",
+  "source_name": "国家粮食和物资储备局",
+  "category": "政策机构",
+  "host": "lswz.gov.cn",
+  "start_urls": [
+   "https://www.lswz.gov.cn/",
+   "https://www.lswz.gov.cn/html/xinwen/index.shtml"
+  ],
+  "enriched": false
+ },
+ {
+  "spider": "070_stats_gov_cn",
+  "file": "app/spiders/070_stats_gov_cn.py",
+  "source_name": "国家统计局",
+  "category": "政策机构",
+  "host": "stats.gov.cn",
+  "start_urls": [
+   "https://www.stats.gov.cn/"
+  ],
+  "enriched": false
+ },
+ {
+  "spider": "071_nea_gov_cn",
+  "file": "app/spiders/071_nea_gov_cn.py",
+  "source_name": "国家能源局",
+  "category": "政策机构",
+  "host": "nea.gov.cn",
+  "start_urls": [
+   "http://www.nea.gov.cn/",
+   "https://www.nea.gov.cn/news/gd.htm",
+   "https://www.nea.gov.cn/news/jwzdt.htm",
+   "https://www.nea.gov.cn/news/pcjg.htm"
+  ],
+  "enriched": false
+ },
+ {
+  "spider": "072_cbirc_gov_cn",
+  "file": "app/spiders/072_cbirc_gov_cn.py",
+  "source_name": "国家金融监督管理总局",
+  "category": "政策机构",
+  "host": "cbirc.gov.cn",
+  "start_urls": [
+   "https://www.cbirc.gov.cn/",
+   "https://www.nfra.gov.cn/",
+   "https://www.nfra.gov.cn/cn/view/pages/ItemList.html?itemPId=915&itemId=916"
+  ],
+  "enriched": false
+ },
+ {
+  "spider": "073_fmprc_gov_cn",
+  "file": "app/spiders/073_fmprc_gov_cn.py",
+  "source_name": "外交部",
+  "category": "政策机构",
+  "host": "fmprc.gov.cn",
+  "start_urls": [
+   "https://www.fmprc.gov.cn/",
+   "https://www.fmprc.gov.cn/zyxw/"
+  ],
+  "enriched": false
+ },
+ {
+  "spider": "074_sasac_tj_gov_cn",
+  "file": "app/spiders/074_sasac_tj_gov_cn.py",
+  "source_name": "天津市国有资产监督管理委员会",
+  "category": "政策机构",
+  "host": "sasac.tj.gov.cn",
+  "start_urls": [
+   "https://sasac.tj.gov.cn/"
+  ],
+  "enriched": false
+ },
+ {
+  "spider": "075_gzw_nx_gov_cn",
+  "file": "app/spiders/075_gzw_nx_gov_cn.py",
+  "source_name": "宁夏回族自治区国有资产监督管理委员会",
+  "category": "政策机构",
+  "host": "gzw.nx.gov.cn",
+  "start_urls": [
+   "http://gzw.nx.gov.cn/"
+  ],
+  "enriched": false
+ },
+ {
+  "spider": "076_gzw_ah_gov_cn",
+  "file": "app/spiders/076_gzw_ah_gov_cn.py",
+  "source_name": "安徽省国有资产监督管理委员会",
+  "category": "政策机构",
+  "host": "gzw.ah.gov.cn",
+  "start_urls": [
+   "http://gzw.ah.gov.cn/",
+   "http://gzw.ah.gov.cn/ahgz/tzgg/index.html"
+  ],
+  "enriched": false
+ },
+ {
+  "spider": "077_audit_gov_cn",
+  "file": "app/spiders/077_audit_gov_cn.py",
+  "source_name": "审计署",
+  "category": "政策机构",
+  "host": "audit.gov.cn",
+  "start_urls": [
+   "https://www.audit.gov.cn/"
+  ],
+  "enriched": false
+ },
+ {
+  "spider": "078_gzw_shandong_gov_cn",
+  "file": "app/spiders/078_gzw_shandong_gov_cn.py",
+  "source_name": "山东省国有资产监督管理委员会",
+  "category": "政策机构",
+  "host": "gzw.shandong.gov.cn",
+  "start_urls": [
+   "http://gzw.shandong.gov.cn/"
+  ],
+  "enriched": false
+ },
+ {
+  "spider": "079_gzw_shanxi_gov_cn",
+  "file": "app/spiders/079_gzw_shanxi_gov_cn.py",
+  "source_name": "山西省国有资产监督管理委员会",
+  "category": "政策机构",
+  "host": "gzw.shanxi.gov.cn",
+  "start_urls": [
+   "http://gzw.shanxi.gov.cn/"
+  ],
+  "enriched": false
+ },
+ {
+  "spider": "080_miit_gov_cn",
+  "file": "app/spiders/080_miit_gov_cn.py",
+  "source_name": "工业和信息化部",
+  "category": "政策机构",
+  "host": "miit.gov.cn",
+  "start_urls": [
+   "https://www.miit.gov.cn/",
+   "https://www.miit.gov.cn/xbymdz/sy/xbdh/xwfb/index.html",
+   "https://www.miit.gov.cn/xwdt/gxdt/index.html"
+  ],
+  "enriched": false
+ },
+ {
+  "spider": "081_gzw_gd_gov_cn",
+  "file": "app/spiders/081_gzw_gd_gov_cn.py",
+  "source_name": "广东省国有资产监督管理委员会",
+  "category": "政策机构",
+  "host": "gzw.gd.gov.cn",
+  "start_urls": [
+   "http://gzw.gd.gov.cn/"
+  ],
+  "enriched": false
+ },
+ {
+  "spider": "082_gzw_gxzf_gov_cn",
+  "file": "app/spiders/082_gzw_gxzf_gov_cn.py",
+  "source_name": "广西壮族自治区国有资产监督管理委员会",
+  "category": "政策机构",
+  "host": "gzw.gxzf.gov.cn",
+  "start_urls": [
+   "http://gzw.gxzf.gov.cn/",
+   "http://gzw.gxzf.gov.cn/xwzx/",
+   "http://gzw.gxzf.gov.cn/xwzx/gzyw/",
+   "http://gzw.gxzf.gov.cn/xwzx/qydt/"
+  ],
+  "enriched": false
+ },
+ {
+  "spider": "083_mem_gov_cn",
+  "file": "app/spiders/083_mem_gov_cn.py",
+  "source_name": "应急管理部",
+  "category": "政策机构",
+  "host": "mem.gov.cn",
+  "start_urls": [
+   "https://www.mem.gov.cn/"
+  ],
+  "enriched": false
+ },
+ {
+  "spider": "084_moe_gov_cn",
+  "file": "app/spiders/084_moe_gov_cn.py",
+  "source_name": "教育部",
+  "category": "政策机构",
+  "host": "moe.gov.cn",
+  "start_urls": [
+   "http://www.moe.gov.cn/"
+  ],
+  "enriched": false
+ },
+ {
+  "spider": "085_zwgk_mct_gov_cn",
+  "file": "app/spiders/085_zwgk_mct_gov_cn.py",
+  "source_name": "文化和旅游部",
+  "category": "政策机构",
+  "host": "zwgk.mct.gov.cn",
+  "start_urls": [
+   "https://zwgk.mct.gov.cn/",
+   "https://www.mct.gov.cn/whzx/whyw/",
+   "https://www.mct.gov.cn/whzx/bnsj/",
+   "https://www.mct.gov.cn/whzx/zsdw/"
+  ],
+  "enriched": false
+ },
+ {
+  "spider": "086_gyzc_xjbt_gov_cn",
+  "file": "app/spiders/086_gyzc_xjbt_gov_cn.py",
+  "source_name": "新疆生产建设兵团国有资产监督管理委员会",
+  "category": "政策机构",
+  "host": "gyzc.xjbt.gov.cn",
+  "start_urls": [
+   "http://gyzc.xjbt.gov.cn/"
+  ],
+  "enriched": false
+ },
+ {
+  "spider": "087_gzw_xinjiang_gov_cn",
+  "file": "app/spiders/087_gzw_xinjiang_gov_cn.py",
+  "source_name": "新疆维吾尔自治区国有资产监督管理委员会",
+  "category": "政策机构",
+  "host": "gzw.xinjiang.gov.cn",
+  "start_urls": [
+   "http://gzw.xinjiang.gov.cn/"
+  ],
+  "enriched": false
+ },
+ {
+  "spider": "088_xxgk_mca_gov_cn",
+  "file": "app/spiders/088_xxgk_mca_gov_cn.py",
+  "source_name": "民政部",
+  "category": "政策机构",
+  "host": "xxgk.mca.gov.cn",
+  "start_urls": [
+   "https://xxgk.mca.gov.cn/",
+   "https://www.mca.gov.cn/"
+  ],
+  "enriched": false
+ },
+ {
+  "spider": "089_mwr_gov_cn",
+  "file": "app/spiders/089_mwr_gov_cn.py",
+  "source_name": "水利部",
+  "category": "政策机构",
+  "host": "mwr.gov.cn",
+  "start_urls": [
+   "http://www.mwr.gov.cn/zwgk/"
+  ],
+  "enriched": false
+ },
+ {
+  "spider": "090_jsgzw_jiangsu_gov_cn",
+  "file": "app/spiders/090_jsgzw_jiangsu_gov_cn.py",
+  "source_name": "江苏省国有资产监督管理委员会",
+  "category": "政策机构",
+  "host": "jsgzw.jiangsu.gov.cn",
+  "start_urls": [
+   "http://jsgzw.jiangsu.gov.cn/index.html",
+   "https://jsgzw.jiangsu.gov.cn/col/col11717/index.html",
+   "https://jsgzw.jiangsu.gov.cn/col/col61527/index.html",
+   "https://jsgzw.jiangsu.gov.cn/col/col11779/index.html",
+   "https://jsgzw.jiangsu.gov.cn/col/col11701/index.html"
+  ],
+  "enriched": false
+ },
+ {
+  "spider": "091_gzw_jiangxi_gov_cn",
+  "file": "app/spiders/091_gzw_jiangxi_gov_cn.py",
+  "source_name": "江西省国有资产监督管理委员会",
+  "category": "政策机构",
+  "host": "gzw.jiangxi.gov.cn",
+  "start_urls": [
+   "http://gzw.jiangxi.gov.cn/"
+  ],
+  "enriched": false
+ },
+ {
+  "spider": "092_hbsa_hebei_gov_cn",
+  "file": "app/spiders/092_hbsa_hebei_gov_cn.py",
+  "source_name": "河北省国有资产监督管理委员会",
+  "category": "政策机构",
+  "host": "hbsa.hebei.gov.cn",
+  "start_urls": [
+   "http://hbsa.hebei.gov.cn/"
+  ],
+  "enriched": false
+ },
+ {
+  "spider": "093_gzw_henan_gov_cn",
+  "file": "app/spiders/093_gzw_henan_gov_cn.py",
+  "source_name": "河南省国有资产监督管理委员会",
+  "category": "政策机构",
+  "host": "gzw.henan.gov.cn",
+  "start_urls": [
+   "https://gzw.henan.gov.cn/"
+  ],
+  "enriched": false
+ },
+ {
+  "spider": "094_gzw_zj_gov_cn",
+  "file": "app/spiders/094_gzw_zj_gov_cn.py",
+  "source_name": "浙江省国有资产监督管理委员会",
+  "category": "政策机构",
+  "host": "gzw.zj.gov.cn",
+  "start_urls": [
+   "http://gzw.zj.gov.cn/"
+  ],
+  "enriched": false
+ },
+ {
+  "spider": "095_customs_gov_cn",
+  "file": "app/spiders/095_customs_gov_cn.py",
+  "source_name": "海关总署",
+  "category": "政策机构",
+  "host": "customs.gov.cn",
+  "start_urls": [
+   "http://www.customs.gov.cn/"
+  ],
+  "enriched": false
+ },
+ {
+  "spider": "096_gzw_hainan_gov_cn",
+  "file": "app/spiders/096_gzw_hainan_gov_cn.py",
+  "source_name": "海南省国有资产监督管理委员会",
+  "category": "政策机构",
+  "host": "gzw.hainan.gov.cn",
+  "start_urls": [
+   "https://gzw.hainan.gov.cn/",
+   "https://gzw.hainan.gov.cn/zxdt_27423/",
+   "https://gzw.hainan.gov.cn/zxdt_27423/zwdt/",
+   "https://gzw.hainan.gov.cn/zxdt_27423/tpxw/",
+   "https://gzw.hainan.gov.cn/zxdt_27423/gwygzyw/"
+  ],
+  "enriched": false
+ },
+ {
+  "spider": "097_gzw_hubei_gov_cn",
+  "file": "app/spiders/097_gzw_hubei_gov_cn.py",
+  "source_name": "湖北省国有资产监督管理委员会",
+  "category": "政策机构",
+  "host": "gzw.hubei.gov.cn",
+  "start_urls": [
+   "http://gzw.hubei.gov.cn/"
+  ],
+  "enriched": false
+ },
+ {
+  "spider": "098_gzw_hunan_gov_cn",
+  "file": "app/spiders/098_gzw_hunan_gov_cn.py",
+  "source_name": "湖南省国有资产监督管理委员会",
+  "category": "政策机构",
+  "host": "gzw.hunan.gov.cn",
+  "start_urls": [
+   "http://gzw.hunan.gov.cn/"
+  ],
+  "enriched": false
+ },
+ {
+  "spider": "099_gzw_gansu_gov_cn",
+  "file": "app/spiders/099_gzw_gansu_gov_cn.py",
+  "source_name": "甘肃省国有资产监督管理委员会",
+  "category": "政策机构",
+  "host": "gzw.gansu.gov.cn",
+  "start_urls": [
+   "http://gzw.gansu.gov.cn/"
+  ],
+  "enriched": false
+ },
+ {
+  "spider": "100_mee_gov_cn",
+  "file": "app/spiders/100_mee_gov_cn.py",
+  "source_name": "生态环境部",
+  "category": "政策机构",
+  "host": "mee.gov.cn",
+  "start_urls": [
+   "https://www.mee.gov.cn/"
+  ],
+  "enriched": false
+ },
+ {
+  "spider": "101_gzw_fujian_gov_cn",
+  "file": "app/spiders/101_gzw_fujian_gov_cn.py",
+  "source_name": "福建省国有资产监督管理委员会",
+  "category": "政策机构",
+  "host": "gzw.fujian.gov.cn",
+  "start_urls": [
+   "http://gzw.fujian.gov.cn/",
+   "http://gzw.fujian.gov.cn/zwgk/gzdt/",
+   "http://gzw.fujian.gov.cn/zwgk/gzyw/",
+   "http://gzw.fujian.gov.cn/zwgk/gzdt/tpxw/"
+  ],
+  "enriched": false
+ },
+ {
+  "spider": "102_most_gov_cn",
+  "file": "app/spiders/102_most_gov_cn.py",
+  "source_name": "科学技术部",
+  "category": "政策机构",
+  "host": "most.gov.cn",
+  "start_urls": [
+   "https://www.most.gov.cn/"
+  ],
+  "enriched": false
+ },
+ {
+  "spider": "103_gk_mnr_gov_cn",
+  "file": "app/spiders/103_gk_mnr_gov_cn.py",
+  "source_name": "自然资源部",
+  "category": "政策机构",
+  "host": "gk.mnr.gov.cn",
+  "start_urls": [
+   "https://gk.mnr.gov.cn/"
+  ],
+  "enriched": false
+ },
+ {
+  "spider": "104_xizang_gov_cn",
+  "file": "app/spiders/104_xizang_gov_cn.py",
+  "source_name": "西藏自治区国有资产监督管理委员会",
+  "category": "政策机构",
+  "host": "xizang.gov.cn",
+  "start_urls": [
+   "https://www.xizang.gov.cn/"
+  ],
+  "enriched": false
+ },
+ {
+  "spider": "105_mof_gov_cn",
+  "file": "app/spiders/105_mof_gov_cn.py",
+  "source_name": "财政部",
+  "category": "政策机构",
+  "host": "mof.gov.cn",
+  "start_urls": [
+   "http://www.mof.gov.cn/",
+   "http://www.mof.gov.cn/index.htm",
+   "http://www.mof.gov.cn/zhengwuxinxi/caizhengxinwen/",
+   "http://www.mof.gov.cn/zhengwuxinxi/caizhengxinwen/index.htm"
+  ],
+  "enriched": false
+ },
+ {
+  "spider": "106_gzw_guizhou_gov_cn",
+  "file": "app/spiders/106_gzw_guizhou_gov_cn.py",
+  "source_name": "贵州省国有资产监督管理委员会",
+  "category": "政策机构",
+  "host": "gzw.guizhou.gov.cn",
+  "start_urls": [
+   "http://gzw.guizhou.gov.cn/"
+  ],
+  "enriched": false
+ },
+ {
+  "spider": "107_gzw_ln_gov_cn",
+  "file": "app/spiders/107_gzw_ln_gov_cn.py",
+  "source_name": "辽宁省国有资产监督管理委员会",
+  "category": "政策机构",
+  "host": "gzw.ln.gov.cn",
+  "start_urls": [
+   "https://gzw.ln.gov.cn/",
+   "https://gzw.ln.gov.cn/gzw/wzsy/tzgg/"
+  ],
+  "enriched": false
+ },
+ {
+  "spider": "108_mva_gov_cn",
+  "file": "app/spiders/108_mva_gov_cn.py",
+  "source_name": "退役军人事务部",
+  "category": "政策机构",
+  "host": "mva.gov.cn",
+  "start_urls": [
+   "http://www.mva.gov.cn/"
+  ],
+  "enriched": false
+ },
+ {
+  "spider": "109_gzw_cq_gov_cn",
+  "file": "app/spiders/109_gzw_cq_gov_cn.py",
+  "source_name": "重庆市国有资产监督管理委员会",
+  "category": "政策机构",
+  "host": "gzw.cq.gov.cn",
+  "start_urls": [
+   "http://gzw.cq.gov.cn/"
+  ],
+  "enriched": false
+ },
+ {
+  "spider": "110_sxgz_shaanxi_gov_cn",
+  "file": "app/spiders/110_sxgz_shaanxi_gov_cn.py",
+  "source_name": "陕西省国有资产监督管理委员会",
+  "category": "政策机构",
+  "host": "sxgz.shaanxi.gov.cn",
+  "start_urls": [
+   "https://sxgz.shaanxi.gov.cn/"
+  ],
+  "enriched": false
+ },
+ {
+  "spider": "111_gzw_qinghai_gov_cn",
+  "file": "app/spiders/111_gzw_qinghai_gov_cn.py",
+  "source_name": "青海省国有资产监督管理委员会",
+  "category": "政策机构",
+  "host": "gzw.qinghai.gov.cn",
+  "start_urls": [
+   "http://gzw.qinghai.gov.cn/"
+  ],
+  "enriched": false
+ },
+ {
+  "spider": "112_gzw_hlj_gov_cn",
+  "file": "app/spiders/112_gzw_hlj_gov_cn.py",
+  "source_name": "黑龙江省国有资产监督管理委员会",
+  "category": "政策机构",
+  "host": "gzw.hlj.gov.cn",
+  "start_urls": [
+   "https://gzw.hlj.gov.cn/"
+  ],
+  "enriched": false
+ },
+ {
+  "spider": "113_m_energytrend_cn",
+  "file": "app/spiders/113_m_energytrend_cn.py",
+  "source_name": "m.energytrend.cn",
+  "category": "新能源",
+  "host": "m.energytrend.cn",
+  "start_urls": [
+   "https://m.energytrend.cn"
+  ],
+  "enriched": false
+ },
+ {
+  "spider": "114_ne21_com",
+  "file": "app/spiders/114_ne21_com.py",
+  "source_name": "ne21.com",
+  "category": "新能源",
+  "host": "ne21.com",
+  "start_urls": [
+   "https://www.ne21.com/"
+  ],
+  "enriched": false
+ },
+ {
+  "spider": "115_china5e_com",
+  "file": "app/spiders/115_china5e_com.py",
+  "source_name": "china5e.com",
+  "category": "新能源",
+  "host": "china5e.com",
+  "start_urls": [
+   "https://www.china5e.com/"
+  ],
+  "enriched": false
+ },
+ {
+  "spider": "116_nengyuanjie_net",
+  "file": "app/spiders/116_nengyuanjie_net.py",
+  "source_name": "nengyuanjie.net",
+  "category": "新能源",
+  "host": "nengyuanjie.net",
+  "start_urls": [
+   "https://www.nengyuanjie.net/"
+  ],
+  "enriched": false
+ },
+ {
+  "spider": "117_xny365_com",
+  "file": "app/spiders/117_xny365_com.py",
+  "source_name": "xny365.com",
+  "category": "新能源",
+  "host": "xny365.com",
+  "start_urls": [
+   "https://www.xny365.com/"
+  ],
+  "enriched": false
+ },
+ {
+  "spider": "118_newenergy_org_cn",
+  "file": "app/spiders/118_newenergy_org_cn.py",
+  "source_name": "newenergy.org.cn",
+  "category": "新能源",
+  "host": "newenergy.org.cn",
+  "start_urls": [
+   "http://www.newenergy.org.cn"
+  ],
+  "enriched": false
+ },
+ {
+  "spider": "119_gongkong_com",
+  "file": "app/spiders/119_gongkong_com.py",
+  "source_name": "gongkong.com",
+  "category": "智能化",
+  "host": "gongkong.com",
+  "start_urls": [
+   "http://www.gongkong.com/"
+  ],
+  "enriched": false
+ },
+ {
+  "spider": "120_zgznh_com",
+  "file": "app/spiders/120_zgznh_com.py",
+  "source_name": "zgznh.com",
+  "category": "智能化",
+  "host": "zgznh.com",
+  "start_urls": [
+   "https://www.zgznh.com/"
+  ],
+  "enriched": false
+ },
+ {
+  "spider": "121_163_com",
+  "file": "app/spiders/121_163_com.py",
+  "source_name": "163.com",
+  "category": "智能化",
+  "host": "163.com",
+  "start_urls": [
+   "https://www.163.com/dy/article/I0GOI5VS0518C444.html?spss=dy_author"
+  ],
+  "enriched": false
+ },
+ {
+  "spider": "122_udesk_cn",
+  "file": "app/spiders/122_udesk_cn.py",
+  "source_name": "udesk.cn",
+  "category": "智能化",
+  "host": "udesk.cn",
+  "start_urls": [
+   "https://www.udesk.cn/gaussmind/kcs.html"
+  ],
+  "enriched": false
+ },
+ {
+  "spider": "123_pubscholar_cn",
+  "file": "app/spiders/123_pubscholar_cn.py",
+  "source_name": "pubscholar.cn",
+  "category": "智能化",
+  "host": "pubscholar.cn",
+  "start_urls": [
+   "https://pubscholar.cn/"
+  ],
+  "enriched": false
+ },
+ {
+  "spider": "124_arxiv_org",
+  "file": "app/spiders/124_arxiv_org.py",
+  "source_name": "arxiv.org",
+  "category": "智能化",
+  "host": "arxiv.org",
+  "start_urls": [
+   "https://arxiv.org"
+  ],
+  "enriched": false
+ },
+ {
+  "spider": "125_bakerhughes_com",
+  "file": "app/spiders/125_bakerhughes_com.py",
+  "source_name": "bakerhughes.com",
+  "category": "机器人",
+  "host": "bakerhughes.com",
+  "start_urls": [
+   "https://www.bakerhughes.com/cn/waygate-technologies/robotic-inspection"
+  ],
+  "enriched": false
+ },
+ {
+  "spider": "126_tetraelc_com",
+  "file": "app/spiders/126_tetraelc_com.py",
+  "source_name": "tetraelc.com",
+  "category": "机器人",
+  "host": "tetraelc.com",
+  "start_urls": [
+   "https://www.tetraelc.com"
+  ],
+  "enriched": false
+ },
+ {
+  "spider": "127_standard_robots_com",
+  "file": "app/spiders/127_standard_robots_com.py",
+  "source_name": "standard-robots.com",
+  "category": "机器人",
+  "host": "standard-robots.com",
+  "start_urls": [
+   "https://www.standard-robots.com"
+  ],
+  "enriched": false
+ },
+ {
+  "spider": "128_samr_gov_cn",
+  "file": "app/spiders/128_samr_gov_cn.py",
+  "source_name": "samr.gov.cn",
+  "category": "机器人",
+  "host": "samr.gov.cn",
+  "start_urls": [
+   "https://www.samr.gov.cn"
+  ],
+  "enriched": false
+ },
+ {
+  "spider": "129_ipcconference_com",
+  "file": "app/spiders/129_ipcconference_com.py",
+  "source_name": "ipcconference.com",
+  "category": "机器人",
+  "host": "ipcconference.com",
+  "start_urls": [
+   "https://www.ipcconference.com"
+  ],
+  "enriched": false
+ },
+ {
+  "spider": "130_sinopecnews_com_cn",
+  "file": "app/spiders/130_sinopecnews_com_cn.py",
+  "source_name": "sinopecnews.com.cn",
+  "category": "机器人",
+  "host": "sinopecnews.com.cn",
+  "start_urls": [
+   "http://www.sinopecnews.com.cn"
+  ],
+  "enriched": false
+ },
+ {
+  "spider": "131_pgjonline_com",
+  "file": "app/spiders/131_pgjonline_com.py",
+  "source_name": "pgjonline.com",
+  "category": "机器人",
+  "host": "pgjonline.com",
+  "start_urls": [
+   "https://pgjonline.com"
+  ],
+  "enriched": false
+ },
+ {
+  "spider": "132_cssn_net_cn",
+  "file": "app/spiders/132_cssn_net_cn.py",
+  "source_name": "cssn.net.cn",
+  "category": "标准化管理",
+  "host": "cssn.net.cn",
+  "start_urls": [
+   "https://www.cssn.net.cn/cssn/index"
+  ],
+  "enriched": false
+ },
+ {
+  "spider": "133_std_samr_gov_cn",
+  "file": "app/spiders/133_std_samr_gov_cn.py",
+  "source_name": "std.samr.gov.cn",
+  "category": "标准化管理",
+  "host": "std.samr.gov.cn",
+  "start_urls": [
+   "https://std.samr.gov.cn/"
+  ],
+  "enriched": false
+ },
+ {
+  "spider": "134_pu_cgmia_org_cn",
+  "file": "app/spiders/134_pu_cgmia_org_cn.py",
+  "source_name": "pu.cgmia.org.cn",
+  "category": "泵机组",
+  "host": "pu.cgmia.org.cn",
+  "start_urls": [
+   "https://pu.cgmia.org.cn/"
+  ],
+  "enriched": false
+ },
+ {
+  "spider": "135_bbs_gongkong_com",
+  "file": "app/spiders/135_bbs_gongkong_com.py",
+  "source_name": "bbs.gongkong.com",
+  "category": "电气",
+  "host": "bbs.gongkong.com",
+  "start_urls": [
+   "http://www.bbs.gongkong.com/"
+  ],
+  "enriched": false
+ },
+ {
+  "spider": "136_bbs_gkong_com",
+  "file": "app/spiders/136_bbs_gkong_com.py",
+  "source_name": "bbs.gkong.com",
+  "category": "电气",
+  "host": "bbs.gkong.com",
+  "start_urls": [
+   "http://www.bbs.gkong.com/"
+  ],
+  "enriched": false
+ },
+ {
+  "spider": "137_csdn_net",
+  "file": "app/spiders/137_csdn_net.py",
+  "source_name": "csdn.net",
+  "category": "电气",
+  "host": "csdn.net",
+  "start_urls": [
+   "http://www.csdn.net/"
+  ],
+  "enriched": false
+ },
+ {
+  "spider": "138_isa_org",
+  "file": "app/spiders/138_isa_org.py",
+  "source_name": "isa.org",
+  "category": "电气",
+  "host": "isa.org",
+  "start_urls": [
+   "http://www.isa.org/"
+  ],
+  "enriched": false
+ },
+ {
+  "spider": "139_autofg_com",
+  "file": "app/spiders/139_autofg_com.py",
+  "source_name": "autofg.com",
+  "category": "电气",
+  "host": "autofg.com",
+  "start_urls": [
+   "http://www.autofg.com/"
+  ],
+  "enriched": false
+ },
+ {
+  "spider": "140_zhihuiya_com",
+  "file": "app/spiders/140_zhihuiya_com.py",
+  "source_name": "zhihuiya.com",
+  "category": "知识产权与对外交流",
+  "host": "zhihuiya.com",
+  "start_urls": [
+   "https://www.zhihuiya.com/"
+  ],
+  "enriched": false
+ },
+ {
+  "spider": "141_cnipa_gov_cn",
+  "file": "app/spiders/141_cnipa_gov_cn.py",
+  "source_name": "cnipa.gov.cn",
+  "category": "知识产权与对外交流",
+  "host": "cnipa.gov.cn",
+  "start_urls": [
+   "http://www.cnipa.gov.cn/"
+  ],
+  "enriched": false
+ },
+ {
+  "spider": "142_pss_system_cponline_cnipa_gov_cn",
+  "file": "app/spiders/142_pss_system_cponline_cnipa_gov_cn.py",
+  "source_name": "pss-system.cponline.cnipa.gov.cn",
+  "category": "知识产权与对外交流",
+  "host": "pss-system.cponline.cnipa.gov.cn",
+  "start_urls": [
+   "https://pss-system.cponline.cnipa.gov.cn/"
+  ],
+  "enriched": false
+ },
+ {
+  "spider": "143_prci_org",
+  "file": "app/spiders/143_prci_org.py",
+  "source_name": "prci.org",
+  "category": "知识产权与对外交流",
+  "host": "prci.org",
+  "start_urls": [
+   "https://www.prci.org/"
+  ],
+  "enriched": false
+ },
+ {
+  "spider": "144_youqichuyun_com",
+  "file": "app/spiders/144_youqichuyun_com.py",
+  "source_name": "youqichuyun.com",
+  "category": "管道技术",
+  "host": "youqichuyun.com",
+  "start_urls": [
+   "https://www.youqichuyun.com/"
+  ],
+  "enriched": false
+ },
+ {
+  "spider": "145_rosen_group_com",
+  "file": "app/spiders/145_rosen_group_com.py",
+  "source_name": "rosen-group.com",
+  "category": "管道检测新技术有关专业网站",
+  "host": "rosen-group.com",
+  "start_urls": [
+   "https://www.rosen-group.com/en"
+  ],
+  "enriched": false
+ },
+ {
+  "spider": "146_tdwilliamson_com",
+  "file": "app/spiders/146_tdwilliamson_com.py",
+  "source_name": "tdwilliamson.com",
+  "category": "管道检测新技术有关专业网站",
+  "host": "tdwilliamson.com",
+  "start_urls": [
+   "https://www.tdwilliamson.com/"
+  ],
+  "enriched": false
+ },
+ {
+  "spider": "147_ppsa_online_com",
+  "file": "app/spiders/147_ppsa_online_com.py",
+  "source_name": "ppsa-online.com",
+  "category": "管道检测新技术有关专业网站",
+  "host": "ppsa-online.com",
+  "start_urls": [
+   "https://www.ppsa-online.com/"
+  ],
+  "enriched": false
+ },
+ {
+  "spider": "148_pipesurveyinternational_com",
+  "file": "app/spiders/148_pipesurveyinternational_com.py",
+  "source_name": "pipesurveyinternational.com",
+  "category": "管道检测新技术有关专业网站",
+  "host": "pipesurveyinternational.com",
+  "start_urls": [
+   "http://www.pipesurveyinternational.com/"
+  ],
+  "enriched": false
+ },
+ {
+  "spider": "149_onstream_pipeline_com",
+  "file": "app/spiders/149_onstream_pipeline_com.py",
+  "source_name": "onstream-pipeline.com",
+  "category": "管道检测新技术有关专业网站",
+  "host": "onstream-pipeline.com",
+  "start_urls": [
+   "https://onstream-pipeline.com/"
+  ],
+  "enriched": false
+ },
+ {
+  "spider": "150_ndt_global_com",
+  "file": "app/spiders/150_ndt_global_com.py",
+  "source_name": "ndt-global.com",
+  "category": "管道检测新技术有关专业网站",
+  "host": "ndt-global.com",
+  "start_urls": [
+   "https://www.ndt-global.com/"
+  ],
+  "enriched": false
+ }
+]

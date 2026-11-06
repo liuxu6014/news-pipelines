@@ -1,0 +1,13 @@
+.git/
+.venv/
+.codegraph/
+.codex/
+run_state/
+run_reports/
+httpcache/
+.scrapy/
+__pycache__/
+*.pyc
+*.pyo
+*.log
+.env

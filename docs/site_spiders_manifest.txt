@@ -1,0 +1,152 @@
+# 独立 XPath 站点爬虫清单（150 个）
+
+001_compressor_cn	compressor.cn	压缩机组相关	compressor.cn	1	
+002_cp_cgmia_org_cn	cp.cgmia.org.cn	压缩机组相关	cp.cgmia.org.cn	1	
+003_cbmm_com	CBMM Technology Suisse SA	国外技术服务	cbmm.com	1	
+004_cooperservices_com	Cooper Machinery Services	国外技术服务	cooperservices.com	1	
+005_cybernetix_fr	Cybernetix	国外技术服务	cybernetix.fr	1	
+006_dnv_com	DNV	国外技术服务	dnv.com	1	
+007_emersonprocess_com	Emerson Process Management	国外技术服务	emersonprocess.com	1	
+008_us_endress_com	Endress+Hauser	国外技术服务	us.endress.com	1	
+009_enduropls_com	Enduro Pipeline Services, Inc.	国外技术服务	enduropls.com	1	
+010_evraz_com	Evraz North America	国外技术服务	evraz.com	1	
+011_jfe_steel_co_jp	JFE Steel Corporation	国外技术服务	jfe-steel.co.jp	1	
+012_krohne_com	KROHNE, Inc.	国外技术服务	krohne.com	1	
+013_mears_net	Mears Group, Inc.	国外技术服务	mears.net	1	
+014_previan_com	Previan	国外技术服务	previan.com	1	
+015_rmg_com	RMG Messtechnik GmbH	国外技术服务	rmg.com	1	
+016_statsgroup_com	STATS Group	国外技术服务	statsgroup.com	1	
+017_siemens_energy_com	Siemens Energy Inc.	国外技术服务	siemens-energy.com	1	
+018_technipfmc_com	TechnipFMC	国外技术服务	technipfmc.com	1	
+019_roseninspection_net	The ROSEN Group	国外技术服务	roseninspection.net	1	
+020_worley_com	Worley Group	国外技术服务	worley.com	1	
+021_apa_com_au	APA Group	国际管道	apa.com.au	1	
+022_colpipe_com	Colonial Pipeline	国际管道	colpipe.com	1	
+023_enbridge_com	Enbridge Inc	国际管道	enbridge.com	1	
+024_fluxys_com	Fluxys Belgium SA	国际管道	fluxys.com	1	
+025_gailonline_com	GAIL (India) -Gas Transmission	国际管道	gailonline.com	1	
+026_natrangroupe_com	GRTgaz	国际管道	natrangroupe.com	1	
+027_gasgrid_fi	Gasgrid Finland	国际管道	gasgrid.fi	1	
+028_gassco_eu	Gassco	国际管道	gassco.eu	1	
+029_gasunie_nl	Gasunie	国际管道	gasunie.nl	1	
+030_gazprom_com	Gazprom	国际管道	gazprom.com	1	
+031_kindermorgan_com	Kinder Morgan Inc	国际管道	kindermorgan.com	1	
+032_nationalgas_com	National Grid Gas plc	国际管道	nationalgas.com	1	
+033_oneok_com	ONEOK	国际管道	oneok.com	1	
+034_snam_it	Snam SpA	国际管道	snam.it	1	
+035_tcenergy_com	TC Energy Corp	国际管道	tcenergy.com	1	
+036_williams_com	Williams Cos Inc	国际管道	williams.com	1	
+037_energytransfer_com	energy transfer	国际管道	energytransfer.com	1	
+038_gzw_sh_gov_cn	上海市国有资产监督管理委员会	政策机构	gzw.sh.gov.cn	1	
+039_pbc_gov_cn	中国人民银行	政策机构	pbc.gov.cn	1	
+040_npc_gov_cn	中国共产党历次全国代表大会	政策机构	npc.gov.cn	1	
+041_cea_gov_cn	中国地震局	政策机构	cea.gov.cn	1	
+042_cma_gov_cn	中国气象局	政策机构	cma.gov.cn	2	
+043_csrc_gov_cn	中国证券监督管理委员会	政策机构	csrc.gov.cn	1	
+044_gzw_yn_gov_cn	云南省国有资产监督管理委员会	政策机构	gzw.yn.gov.cn	1	
+045_xxgk_mot_gov_cn	交通运输部	政策机构	xxgk.mot.gov.cn	1	
+046_mohurd_gov_cn	住房和城乡建设部	政策机构	mohurd.gov.cn	1	
+047_app_mps_gov_cn	公安部	政策机构	app.mps.gov.cn	1	
+048_gzw_nmg_gov_cn	内蒙古自治区国有资产监督管理委员会	政策机构	gzw.nmg.gov.cn	1	
+049_moa_gov_cn	农业农村部	政策机构	moa.gov.cn	1	
+050_gzw_beijing_gov_cn	北京市国有资产监督管理委员会	政策机构	gzw.beijing.gov.cn	1	
+051_moj_gov_cn	司法部	政策机构	moj.gov.cn	1	
+052_gzw_jl_gov_cn	吉林省国有资产监督管理委员会	政策机构	gzw.jl.gov.cn	1	
+053_mofcom_gov_cn	商务部	政策机构	mofcom.gov.cn	1	
+054_gzw_sc_gov_cn	四川省国有资产监督管理委员会	政策机构	gzw.sc.gov.cn	1	
+055_gov_cn	国务院	政策机构	gov.cn	1	
+056_sasac_gov_cn	国务院国资委	政策机构	sasac.gov.cn	1	
+057_gjbmj_gov_cn	国家保密局	政策机构	gjbmj.gov.cn	1	
+058_nhsa_gov_cn	国家医疗保障局	政策机构	nhsa.gov.cn	1	
+059_nhc_gov_cn	国家卫生健康委员会	政策机构	nhc.gov.cn	1	
+060_ndrc_gov_cn	国家发展和改革委员会	政策机构	ndrc.gov.cn	1	
+061_forestry_gov_cn	国家国防科技工业局	政策机构	forestry.gov.cn	1	
+062_cidca_gov_cn	国家国际发展合作署	政策机构	cidca.gov.cn	1	
+063_safe_gov_cn	国家外汇管理局	政策机构	safe.gov.cn	1	
+064_nppa_gov_cn	国家新闻出版署（国家版权局）	政策机构	nppa.gov.cn	1	
+065_gkml_ggj_gov_cn	国家机关事务管理局	政策机构	gkml.ggj.gov.cn	4	
+066_saac_gov_cn	国家档案局	政策机构	saac.gov.cn	1	
+067_neac_gov_cn	国家民族事务委员会	政策机构	neac.gov.cn	1	
+068_chinatax_gov_cn	国家税务总局	政策机构	chinatax.gov.cn	1	
+069_lswz_gov_cn	国家粮食和物资储备局	政策机构	lswz.gov.cn	2	
+070_stats_gov_cn	国家统计局	政策机构	stats.gov.cn	1	
+071_nea_gov_cn	国家能源局	政策机构	nea.gov.cn	4	
+072_cbirc_gov_cn	国家金融监督管理总局	政策机构	cbirc.gov.cn	3	
+073_fmprc_gov_cn	外交部	政策机构	fmprc.gov.cn	2	
+074_sasac_tj_gov_cn	天津市国有资产监督管理委员会	政策机构	sasac.tj.gov.cn	1	
+075_gzw_nx_gov_cn	宁夏回族自治区国有资产监督管理委员会	政策机构	gzw.nx.gov.cn	1	
+076_gzw_ah_gov_cn	安徽省国有资产监督管理委员会	政策机构	gzw.ah.gov.cn	2	
+077_audit_gov_cn	审计署	政策机构	audit.gov.cn	1	
+078_gzw_shandong_gov_cn	山东省国有资产监督管理委员会	政策机构	gzw.shandong.gov.cn	1	
+079_gzw_shanxi_gov_cn	山西省国有资产监督管理委员会	政策机构	gzw.shanxi.gov.cn	1	
+080_miit_gov_cn	工业和信息化部	政策机构	miit.gov.cn	3	
+081_gzw_gd_gov_cn	广东省国有资产监督管理委员会	政策机构	gzw.gd.gov.cn	1	
+082_gzw_gxzf_gov_cn	广西壮族自治区国有资产监督管理委员会	政策机构	gzw.gxzf.gov.cn	4	
+083_mem_gov_cn	应急管理部	政策机构	mem.gov.cn	1	
+084_moe_gov_cn	教育部	政策机构	moe.gov.cn	1	
+085_zwgk_mct_gov_cn	文化和旅游部	政策机构	zwgk.mct.gov.cn	4	
+086_gyzc_xjbt_gov_cn	新疆生产建设兵团国有资产监督管理委员会	政策机构	gyzc.xjbt.gov.cn	1	
+087_gzw_xinjiang_gov_cn	新疆维吾尔自治区国有资产监督管理委员会	政策机构	gzw.xinjiang.gov.cn	1	
+088_xxgk_mca_gov_cn	民政部	政策机构	xxgk.mca.gov.cn	2	
+089_mwr_gov_cn	水利部	政策机构	mwr.gov.cn	1	
+090_jsgzw_jiangsu_gov_cn	江苏省国有资产监督管理委员会	政策机构	jsgzw.jiangsu.gov.cn	5	
+091_gzw_jiangxi_gov_cn	江西省国有资产监督管理委员会	政策机构	gzw.jiangxi.gov.cn	1	
+092_hbsa_hebei_gov_cn	河北省国有资产监督管理委员会	政策机构	hbsa.hebei.gov.cn	1	
+093_gzw_henan_gov_cn	河南省国有资产监督管理委员会	政策机构	gzw.henan.gov.cn	1	
+094_gzw_zj_gov_cn	浙江省国有资产监督管理委员会	政策机构	gzw.zj.gov.cn	1	
+095_customs_gov_cn	海关总署	政策机构	customs.gov.cn	1	
+096_gzw_hainan_gov_cn	海南省国有资产监督管理委员会	政策机构	gzw.hainan.gov.cn	5	
+097_gzw_hubei_gov_cn	湖北省国有资产监督管理委员会	政策机构	gzw.hubei.gov.cn	1	
+098_gzw_hunan_gov_cn	湖南省国有资产监督管理委员会	政策机构	gzw.hunan.gov.cn	1	
+099_gzw_gansu_gov_cn	甘肃省国有资产监督管理委员会	政策机构	gzw.gansu.gov.cn	1	
+100_mee_gov_cn	生态环境部	政策机构	mee.gov.cn	1	
+101_gzw_fujian_gov_cn	福建省国有资产监督管理委员会	政策机构	gzw.fujian.gov.cn	4	
+102_most_gov_cn	科学技术部	政策机构	most.gov.cn	1	
+103_gk_mnr_gov_cn	自然资源部	政策机构	gk.mnr.gov.cn	1	
+104_xizang_gov_cn	西藏自治区国有资产监督管理委员会	政策机构	xizang.gov.cn	1	
+105_mof_gov_cn	财政部	政策机构	mof.gov.cn	4	
+106_gzw_guizhou_gov_cn	贵州省国有资产监督管理委员会	政策机构	gzw.guizhou.gov.cn	1	
+107_gzw_ln_gov_cn	辽宁省国有资产监督管理委员会	政策机构	gzw.ln.gov.cn	2	
+108_mva_gov_cn	退役军人事务部	政策机构	mva.gov.cn	1	
+109_gzw_cq_gov_cn	重庆市国有资产监督管理委员会	政策机构	gzw.cq.gov.cn	1	
+110_sxgz_shaanxi_gov_cn	陕西省国有资产监督管理委员会	政策机构	sxgz.shaanxi.gov.cn	1	
+111_gzw_qinghai_gov_cn	青海省国有资产监督管理委员会	政策机构	gzw.qinghai.gov.cn	1	
+112_gzw_hlj_gov_cn	黑龙江省国有资产监督管理委员会	政策机构	gzw.hlj.gov.cn	1	
+113_m_energytrend_cn	m.energytrend.cn	新能源	m.energytrend.cn	1	
+114_ne21_com	ne21.com	新能源	ne21.com	1	
+115_china5e_com	china5e.com	新能源	china5e.com	1	
+116_nengyuanjie_net	nengyuanjie.net	新能源	nengyuanjie.net	1	
+117_xny365_com	xny365.com	新能源	xny365.com	1	
+118_newenergy_org_cn	newenergy.org.cn	新能源	newenergy.org.cn	1	
+119_gongkong_com	gongkong.com	智能化	gongkong.com	1	
+120_zgznh_com	zgznh.com	智能化	zgznh.com	1	
+121_163_com	163.com	智能化	163.com	1	
+122_udesk_cn	udesk.cn	智能化	udesk.cn	1	
+123_pubscholar_cn	pubscholar.cn	智能化	pubscholar.cn	1	
+124_arxiv_org	arxiv.org	智能化	arxiv.org	1	
+125_bakerhughes_com	bakerhughes.com	机器人	bakerhughes.com	1	
+126_tetraelc_com	tetraelc.com	机器人	tetraelc.com	1	
+127_standard_robots_com	standard-robots.com	机器人	standard-robots.com	1	
+128_samr_gov_cn	samr.gov.cn	机器人	samr.gov.cn	1	
+129_ipcconference_com	ipcconference.com	机器人	ipcconference.com	1	
+130_sinopecnews_com_cn	sinopecnews.com.cn	机器人	sinopecnews.com.cn	1	
+131_pgjonline_com	pgjonline.com	机器人	pgjonline.com	1	
+132_cssn_net_cn	cssn.net.cn	标准化管理	cssn.net.cn	1	
+133_std_samr_gov_cn	std.samr.gov.cn	标准化管理	std.samr.gov.cn	1	
+134_pu_cgmia_org_cn	pu.cgmia.org.cn	泵机组	pu.cgmia.org.cn	1	
+135_bbs_gongkong_com	bbs.gongkong.com	电气	bbs.gongkong.com	1	
+136_bbs_gkong_com	bbs.gkong.com	电气	bbs.gkong.com	1	
+137_csdn_net	csdn.net	电气	csdn.net	1	
+138_isa_org	isa.org	电气	isa.org	1	
+139_autofg_com	autofg.com	电气	autofg.com	1	
+140_zhihuiya_com	zhihuiya.com	知识产权与对外交流	zhihuiya.com	1	
+141_cnipa_gov_cn	cnipa.gov.cn	知识产权与对外交流	cnipa.gov.cn	1	
+142_pss_system_cponline_cnipa_gov_cn	pss-system.cponline.cnipa.gov.cn	知识产权与对外交流	pss-system.cponline.cnipa.gov.cn	1	
+143_prci_org	prci.org	知识产权与对外交流	prci.org	1	
+144_youqichuyun_com	youqichuyun.com	管道技术	youqichuyun.com	1	
+145_rosen_group_com	rosen-group.com	管道检测新技术有关专业网站	rosen-group.com	1	
+146_tdwilliamson_com	tdwilliamson.com	管道检测新技术有关专业网站	tdwilliamson.com	1	
+147_ppsa_online_com	ppsa-online.com	管道检测新技术有关专业网站	ppsa-online.com	1	
+148_pipesurveyinternational_com	pipesurveyinternational.com	管道检测新技术有关专业网站	pipesurveyinternational.com	1	
+149_onstream_pipeline_com	onstream-pipeline.com	管道检测新技术有关专业网站	onstream-pipeline.com	1	
+150_ndt_global_com	ndt-global.com	管道检测新技术有关专业网站	ndt-global.com	1	

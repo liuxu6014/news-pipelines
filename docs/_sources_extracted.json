@@ -1,0 +1,787 @@
+[
+ {
+  "host": "compressor.cn",
+  "url": "http://www.compressor.cn/",
+  "label": "压缩机组相关"
+ },
+ {
+  "host": "cp.cgmia.org.cn",
+  "url": "https://cp.cgmia.org.cn/",
+  "label": "压缩机组相关"
+ },
+ {
+  "host": "cbmm.com",
+  "url": "https://cbmm.com/",
+  "label": "国外技术服务:CBMM Technology Suisse SA"
+ },
+ {
+  "host": "cooperservices.com",
+  "url": "https://www.cooperservices.com/",
+  "label": "国外技术服务:Cooper Machinery Services"
+ },
+ {
+  "host": "cybernetix.fr",
+  "url": "http://www.cybernetix.fr/en/",
+  "label": "国外技术服务:Cybernetix"
+ },
+ {
+  "host": "dnv.com",
+  "url": "https://www.dnv.com",
+  "label": "国外技术服务:DNV"
+ },
+ {
+  "host": "emersonprocess.com",
+  "url": "http://www.emersonprocess.com",
+  "label": "国外技术服务:Emerson Process Management"
+ },
+ {
+  "host": "us.endress.com",
+  "url": "http://www.us.endress.com",
+  "label": "国外技术服务:Endress+Hauser"
+ },
+ {
+  "host": "enduropls.com",
+  "url": "http://www.enduropls.com",
+  "label": "国外技术服务:Enduro Pipeline Services, Inc."
+ },
+ {
+  "host": "evraz.com",
+  "url": "http://www.evraz.com",
+  "label": "国外技术服务:Evraz North America"
+ },
+ {
+  "host": "jfe-steel.co.jp",
+  "url": "http://www.jfe-steel.co.jp/en/index.html",
+  "label": "国外技术服务:JFE Steel Corporation"
+ },
+ {
+  "host": "krohne.com",
+  "url": "http://www.krohne.com",
+  "label": "国外技术服务:KROHNE, Inc."
+ },
+ {
+  "host": "mears.net",
+  "url": "https://mears.net/division/pipeline-integrity/",
+  "label": "国外技术服务:Mears Group, Inc."
+ },
+ {
+  "host": "previan.com",
+  "url": "https://previan.com/",
+  "label": "国外技术服务:Previan"
+ },
+ {
+  "host": "rmg.com",
+  "url": "https://www.rmg.com/",
+  "label": "国外技术服务:RMG Messtechnik GmbH"
+ },
+ {
+  "host": "statsgroup.com",
+  "url": "http://statsgroup.com",
+  "label": "国外技术服务:STATS Group"
+ },
+ {
+  "host": "siemens-energy.com",
+  "url": "https://www.siemens-energy.com/global/en.html",
+  "label": "国外技术服务:Siemens Energy Inc."
+ },
+ {
+  "host": "technipfmc.com",
+  "url": "https://www.technipfmc.com/",
+  "label": "国外技术服务:TechnipFMC"
+ },
+ {
+  "host": "roseninspection.net",
+  "url": "http://www.roseninspection.net",
+  "label": "国外技术服务:The ROSEN Group"
+ },
+ {
+  "host": "worley.com",
+  "url": "https://www.worley.com/",
+  "label": "国外技术服务:Worley Group"
+ },
+ {
+  "host": "apa.com.au",
+  "url": "https://www.apa.com.au/",
+  "label": "国际管道:APA Group"
+ },
+ {
+  "host": "colpipe.com",
+  "url": "https://www.colpipe.com/",
+  "label": "国际管道:Colonial Pipeline"
+ },
+ {
+  "host": "enbridge.com",
+  "url": "https://www.enbridge.com/",
+  "label": "国际管道:Enbridge Inc"
+ },
+ {
+  "host": "fluxys.com",
+  "url": "https://www.fluxys.com/en#/",
+  "label": "国际管道:Fluxys Belgium SA"
+ },
+ {
+  "host": "gailonline.com",
+  "url": "https://gailonline.com/",
+  "label": "国际管道:GAIL (India) -Gas Transmission"
+ },
+ {
+  "host": "natrangroupe.com",
+  "url": "https://www.natrangroupe.com/",
+  "label": "国际管道:GRTgaz"
+ },
+ {
+  "host": "gasgrid.fi",
+  "url": "https://gasgrid.fi/en/",
+  "label": "国际管道:Gasgrid Finland"
+ },
+ {
+  "host": "gassco.eu",
+  "url": "https://gassco.eu/en/home/",
+  "label": "国际管道:Gassco"
+ },
+ {
+  "host": "gasunie.nl",
+  "url": "https://www.gasunie.nl/en",
+  "label": "国际管道:Gasunie"
+ },
+ {
+  "host": "gazprom.com",
+  "url": "https://www.gazprom.com/",
+  "label": "国际管道:Gazprom"
+ },
+ {
+  "host": "kindermorgan.com",
+  "url": "http://www.kindermorgan.com/",
+  "label": "国际管道:Kinder Morgan Inc"
+ },
+ {
+  "host": "nationalgas.com",
+  "url": "https://www.nationalgas.com/",
+  "label": "国际管道:National Grid Gas plc"
+ },
+ {
+  "host": "oneok.com",
+  "url": "https://www.oneok.com/",
+  "label": "国际管道:ONEOK"
+ },
+ {
+  "host": "snam.it",
+  "url": "https://www.snam.it/en/home.html",
+  "label": "国际管道:Snam SpA"
+ },
+ {
+  "host": "tcenergy.com",
+  "url": "https://www.tcenergy.com/",
+  "label": "国际管道:TC Energy Corp"
+ },
+ {
+  "host": "williams.com",
+  "url": "https://www.williams.com/",
+  "label": "国际管道:Williams Cos Inc"
+ },
+ {
+  "host": "energytransfer.com",
+  "url": "https://www.energytransfer.com/",
+  "label": "国际管道:energy transfer"
+ },
+ {
+  "host": "gzw.sh.gov.cn",
+  "url": "https://www.gzw.sh.gov.cn/",
+  "label": "政策机构:上海市国有资产监督管理委员会"
+ },
+ {
+  "host": "pbc.gov.cn",
+  "url": "http://www.pbc.gov.cn/",
+  "label": "政策机构:中国人民银行"
+ },
+ {
+  "host": "npc.gov.cn",
+  "url": "http://www.npc.gov.cn/",
+  "label": "政策机构:中国共产党历次全国代表大会"
+ },
+ {
+  "host": "cea.gov.cn",
+  "url": "https://www.cea.gov.cn/",
+  "label": "政策机构:中国地震局"
+ },
+ {
+  "host": "cma.gov.cn",
+  "url": "https://www.cma.gov.cn/",
+  "label": "政策机构:中国气象局"
+ },
+ {
+  "host": "csrc.gov.cn",
+  "url": "http://www.csrc.gov.cn/",
+  "label": "政策机构:中国证券监督管理委员会"
+ },
+ {
+  "host": "gzw.yn.gov.cn",
+  "url": "https://gzw.yn.gov.cn/",
+  "label": "政策机构:云南省国有资产监督管理委员会"
+ },
+ {
+  "host": "xxgk.mot.gov.cn",
+  "url": "https://xxgk.mot.gov.cn/",
+  "label": "政策机构:交通运输部"
+ },
+ {
+  "host": "mohurd.gov.cn",
+  "url": "https://www.mohurd.gov.cn/",
+  "label": "政策机构:住房和城乡建设部"
+ },
+ {
+  "host": "app.mps.gov.cn",
+  "url": "https://app.mps.gov.cn/",
+  "label": "政策机构:公安部"
+ },
+ {
+  "host": "gzw.nmg.gov.cn",
+  "url": "http://gzw.nmg.gov.cn/",
+  "label": "政策机构:内蒙古自治区国有资产监督管理委员会"
+ },
+ {
+  "host": "moa.gov.cn",
+  "url": "http://www.moa.gov.cn/",
+  "label": "政策机构:农业农村部"
+ },
+ {
+  "host": "gzw.beijing.gov.cn",
+  "url": "https://gzw.beijing.gov.cn/",
+  "label": "政策机构:北京市国有资产监督管理委员会"
+ },
+ {
+  "host": "moj.gov.cn",
+  "url": "https://www.moj.gov.cn/",
+  "label": "政策机构:司法部"
+ },
+ {
+  "host": "gzw.jl.gov.cn",
+  "url": "http://gzw.jl.gov.cn/",
+  "label": "政策机构:吉林省国有资产监督管理委员会"
+ },
+ {
+  "host": "mofcom.gov.cn",
+  "url": "http://www.mofcom.gov.cn/",
+  "label": "政策机构:商务部"
+ },
+ {
+  "host": "gzw.sc.gov.cn",
+  "url": "http://gzw.sc.gov.cn/",
+  "label": "政策机构:四川省国有资产监督管理委员会"
+ },
+ {
+  "host": "gov.cn",
+  "url": "https://www.gov.cn/",
+  "label": "政策机构:国务院"
+ },
+ {
+  "host": "sasac.gov.cn",
+  "url": "http://www.sasac.gov.cn/",
+  "label": "政策机构:国务院国资委"
+ },
+ {
+  "host": "gjbmj.gov.cn",
+  "url": "https://www.gjbmj.gov.cn/",
+  "label": "政策机构:国家保密局"
+ },
+ {
+  "host": "nhsa.gov.cn",
+  "url": "http://www.nhsa.gov.cn/",
+  "label": "政策机构:国家医疗保障局"
+ },
+ {
+  "host": "nhc.gov.cn",
+  "url": "http://www.nhc.gov.cn/",
+  "label": "政策机构:国家卫生健康委员会"
+ },
+ {
+  "host": "ndrc.gov.cn",
+  "url": "https://www.ndrc.gov.cn/",
+  "label": "政策机构:国家发展和改革委员会"
+ },
+ {
+  "host": "forestry.gov.cn",
+  "url": "https://www.forestry.gov.cn/",
+  "label": "政策机构:国家国防科技工业局"
+ },
+ {
+  "host": "cidca.gov.cn",
+  "url": "http://www.cidca.gov.cn/",
+  "label": "政策机构:国家国际发展合作署"
+ },
+ {
+  "host": "safe.gov.cn",
+  "url": "http://www.safe.gov.cn/",
+  "label": "政策机构:国家外汇管理局"
+ },
+ {
+  "host": "nppa.gov.cn",
+  "url": "https://www.nppa.gov.cn/",
+  "label": "政策机构:国家新闻出版署（国家版权局）"
+ },
+ {
+  "host": "gkml.ggj.gov.cn",
+  "url": "https://gkml.ggj.gov.cn/",
+  "label": "政策机构:国家机关事务管理局"
+ },
+ {
+  "host": "saac.gov.cn",
+  "url": "https://www.saac.gov.cn/",
+  "label": "政策机构:国家档案局"
+ },
+ {
+  "host": "neac.gov.cn",
+  "url": "https://www.neac.gov.cn/",
+  "label": "政策机构:国家民族事务委员会"
+ },
+ {
+  "host": "chinatax.gov.cn",
+  "url": "https://www.chinatax.gov.cn/",
+  "label": "政策机构:国家税务总局"
+ },
+ {
+  "host": "lswz.gov.cn",
+  "url": "https://www.lswz.gov.cn/",
+  "label": "政策机构:国家粮食和物资储备局"
+ },
+ {
+  "host": "stats.gov.cn",
+  "url": "https://www.stats.gov.cn/",
+  "label": "政策机构:国家统计局"
+ },
+ {
+  "host": "nea.gov.cn",
+  "url": "http://www.nea.gov.cn/",
+  "label": "政策机构:国家能源局"
+ },
+ {
+  "host": "cbirc.gov.cn",
+  "url": "https://www.cbirc.gov.cn/",
+  "label": "政策机构:国家金融监督管理总局"
+ },
+ {
+  "host": "fmprc.gov.cn",
+  "url": "https://www.fmprc.gov.cn/",
+  "label": "政策机构:外交部"
+ },
+ {
+  "host": "sasac.tj.gov.cn",
+  "url": "https://sasac.tj.gov.cn/",
+  "label": "政策机构:天津市国有资产监督管理委员会"
+ },
+ {
+  "host": "gzw.nx.gov.cn",
+  "url": "http://gzw.nx.gov.cn/",
+  "label": "政策机构:宁夏回族自治区国有资产监督管理委员会"
+ },
+ {
+  "host": "gzw.ah.gov.cn",
+  "url": "http://gzw.ah.gov.cn/",
+  "label": "政策机构:安徽省国有资产监督管理委员会"
+ },
+ {
+  "host": "audit.gov.cn",
+  "url": "https://www.audit.gov.cn/",
+  "label": "政策机构:审计署"
+ },
+ {
+  "host": "gzw.shandong.gov.cn",
+  "url": "http://gzw.shandong.gov.cn/",
+  "label": "政策机构:山东省国有资产监督管理委员会"
+ },
+ {
+  "host": "gzw.shanxi.gov.cn",
+  "url": "http://gzw.shanxi.gov.cn/",
+  "label": "政策机构:山西省国有资产监督管理委员会"
+ },
+ {
+  "host": "miit.gov.cn",
+  "url": "https://www.miit.gov.cn/",
+  "label": "政策机构:工业和信息化部"
+ },
+ {
+  "host": "gzw.gd.gov.cn",
+  "url": "http://gzw.gd.gov.cn/",
+  "label": "政策机构:广东省国有资产监督管理委员会"
+ },
+ {
+  "host": "gzw.gxzf.gov.cn",
+  "url": "http://gzw.gxzf.gov.cn/",
+  "label": "政策机构:广西壮族自治区国有资产监督管理委员会"
+ },
+ {
+  "host": "mem.gov.cn",
+  "url": "https://www.mem.gov.cn/",
+  "label": "政策机构:应急管理部"
+ },
+ {
+  "host": "moe.gov.cn",
+  "url": "http://www.moe.gov.cn/",
+  "label": "政策机构:教育部"
+ },
+ {
+  "host": "zwgk.mct.gov.cn",
+  "url": "https://zwgk.mct.gov.cn/",
+  "label": "政策机构:文化和旅游部"
+ },
+ {
+  "host": "gyzc.xjbt.gov.cn",
+  "url": "http://gyzc.xjbt.gov.cn/",
+  "label": "政策机构:新疆生产建设兵团国有资产监督管理委员会"
+ },
+ {
+  "host": "gzw.xinjiang.gov.cn",
+  "url": "http://gzw.xinjiang.gov.cn/",
+  "label": "政策机构:新疆维吾尔自治区国有资产监督管理委员会"
+ },
+ {
+  "host": "xxgk.mca.gov.cn",
+  "url": "https://xxgk.mca.gov.cn/",
+  "label": "政策机构:民政部"
+ },
+ {
+  "host": "mwr.gov.cn",
+  "url": "http://www.mwr.gov.cn/zwgk/",
+  "label": "政策机构:水利部"
+ },
+ {
+  "host": "jsgzw.jiangsu.gov.cn",
+  "url": "http://jsgzw.jiangsu.gov.cn/index.html",
+  "label": "政策机构:江苏省国有资产监督管理委员会"
+ },
+ {
+  "host": "gzw.jiangxi.gov.cn",
+  "url": "http://gzw.jiangxi.gov.cn/",
+  "label": "政策机构:江西省国有资产监督管理委员会"
+ },
+ {
+  "host": "hbsa.hebei.gov.cn",
+  "url": "http://hbsa.hebei.gov.cn/",
+  "label": "政策机构:河北省国有资产监督管理委员会"
+ },
+ {
+  "host": "gzw.henan.gov.cn",
+  "url": "https://gzw.henan.gov.cn/",
+  "label": "政策机构:河南省国有资产监督管理委员会"
+ },
+ {
+  "host": "gzw.zj.gov.cn",
+  "url": "http://gzw.zj.gov.cn/",
+  "label": "政策机构:浙江省国有资产监督管理委员会"
+ },
+ {
+  "host": "customs.gov.cn",
+  "url": "http://www.customs.gov.cn/",
+  "label": "政策机构:海关总署"
+ },
+ {
+  "host": "gzw.hainan.gov.cn",
+  "url": "https://gzw.hainan.gov.cn/",
+  "label": "政策机构:海南省国有资产监督管理委员会"
+ },
+ {
+  "host": "gzw.hubei.gov.cn",
+  "url": "http://gzw.hubei.gov.cn/",
+  "label": "政策机构:湖北省国有资产监督管理委员会"
+ },
+ {
+  "host": "gzw.hunan.gov.cn",
+  "url": "http://gzw.hunan.gov.cn/",
+  "label": "政策机构:湖南省国有资产监督管理委员会"
+ },
+ {
+  "host": "gzw.gansu.gov.cn",
+  "url": "http://gzw.gansu.gov.cn/",
+  "label": "政策机构:甘肃省国有资产监督管理委员会"
+ },
+ {
+  "host": "mee.gov.cn",
+  "url": "https://www.mee.gov.cn/",
+  "label": "政策机构:生态环境部"
+ },
+ {
+  "host": "gzw.fujian.gov.cn",
+  "url": "http://gzw.fujian.gov.cn/",
+  "label": "政策机构:福建省国有资产监督管理委员会"
+ },
+ {
+  "host": "most.gov.cn",
+  "url": "https://www.most.gov.cn/",
+  "label": "政策机构:科学技术部"
+ },
+ {
+  "host": "gk.mnr.gov.cn",
+  "url": "https://gk.mnr.gov.cn/",
+  "label": "政策机构:自然资源部"
+ },
+ {
+  "host": "xizang.gov.cn",
+  "url": "https://www.xizang.gov.cn/",
+  "label": "政策机构:西藏自治区国有资产监督管理委员会"
+ },
+ {
+  "host": "mof.gov.cn",
+  "url": "http://www.mof.gov.cn/",
+  "label": "政策机构:财政部"
+ },
+ {
+  "host": "gzw.guizhou.gov.cn",
+  "url": "http://gzw.guizhou.gov.cn/",
+  "label": "政策机构:贵州省国有资产监督管理委员会"
+ },
+ {
+  "host": "gzw.ln.gov.cn",
+  "url": "https://gzw.ln.gov.cn/",
+  "label": "政策机构:辽宁省国有资产监督管理委员会"
+ },
+ {
+  "host": "mva.gov.cn",
+  "url": "http://www.mva.gov.cn/",
+  "label": "政策机构:退役军人事务部"
+ },
+ {
+  "host": "gzw.cq.gov.cn",
+  "url": "http://gzw.cq.gov.cn/",
+  "label": "政策机构:重庆市国有资产监督管理委员会"
+ },
+ {
+  "host": "sxgz.shaanxi.gov.cn",
+  "url": "https://sxgz.shaanxi.gov.cn/",
+  "label": "政策机构:陕西省国有资产监督管理委员会"
+ },
+ {
+  "host": "gzw.qinghai.gov.cn",
+  "url": "http://gzw.qinghai.gov.cn/",
+  "label": "政策机构:青海省国有资产监督管理委员会"
+ },
+ {
+  "host": "gzw.hlj.gov.cn",
+  "url": "https://gzw.hlj.gov.cn/",
+  "label": "政策机构:黑龙江省国有资产监督管理委员会"
+ },
+ {
+  "host": "m.energytrend.cn",
+  "url": "https://m.energytrend.cn",
+  "label": "新能源"
+ },
+ {
+  "host": "ne21.com",
+  "url": "https://www.ne21.com/",
+  "label": "新能源"
+ },
+ {
+  "host": "china5e.com",
+  "url": "https://www.china5e.com/",
+  "label": "新能源"
+ },
+ {
+  "host": "nengyuanjie.net",
+  "url": "https://www.nengyuanjie.net/",
+  "label": "新能源"
+ },
+ {
+  "host": "xny365.com",
+  "url": "https://www.xny365.com/",
+  "label": "新能源"
+ },
+ {
+  "host": "newenergy.org.cn",
+  "url": "http://www.newenergy.org.cn",
+  "label": "新能源"
+ },
+ {
+  "host": "kegongyun.com",
+  "url": "http://www.kegongyun.com/",
+  "label": "智能化"
+ },
+ {
+  "host": "gongkong.com",
+  "url": "http://www.gongkong.com/",
+  "label": "智能化"
+ },
+ {
+  "host": "zgznh.com",
+  "url": "https://www.zgznh.com/",
+  "label": "智能化"
+ },
+ {
+  "host": "163.com",
+  "url": "https://www.163.com/dy/article/I0GOI5VS0518C444.html?spss=dy_author",
+  "label": "智能化"
+ },
+ {
+  "host": "udesk.cn",
+  "url": "https://www.udesk.cn/gaussmind/kcs.html",
+  "label": "智能化"
+ },
+ {
+  "host": "51ima.com",
+  "url": "https://www.51ima.com/assistant",
+  "label": "智能化"
+ },
+ {
+  "host": "pubscholar.cn",
+  "url": "https://pubscholar.cn/",
+  "label": "智能化"
+ },
+ {
+  "host": "arxiv.org",
+  "url": "https://arxiv.org",
+  "label": "智能化"
+ },
+ {
+  "host": "bakerhughes.com",
+  "url": "https://www.bakerhughes.com/cn/waygate-technologies/robotic-inspection",
+  "label": "机器人"
+ },
+ {
+  "host": "tetraelc.com",
+  "url": "https://www.tetraelc.com",
+  "label": "机器人"
+ },
+ {
+  "host": "standard-robots.com",
+  "url": "https://www.standard-robots.com",
+  "label": "机器人"
+ },
+ {
+  "host": "samr.gov.cn",
+  "url": "https://www.samr.gov.cn",
+  "label": "机器人"
+ },
+ {
+  "host": "ipcconference.com",
+  "url": "https://www.ipcconference.com",
+  "label": "机器人"
+ },
+ {
+  "host": "sinopecnews.com.cn",
+  "url": "http://www.sinopecnews.com.cn",
+  "label": "机器人"
+ },
+ {
+  "host": "pgjonline.com",
+  "url": "https://pgjonline.com",
+  "label": "机器人"
+ },
+ {
+  "host": "cssn.net.cn",
+  "url": "https://www.cssn.net.cn/cssn/index",
+  "label": "标准化管理"
+ },
+ {
+  "host": "std.samr.gov.cn",
+  "url": "https://std.samr.gov.cn/",
+  "label": "标准化管理"
+ },
+ {
+  "host": "pu.cgmia.org.cn",
+  "url": "https://pu.cgmia.org.cn/",
+  "label": "泵机组"
+ },
+ {
+  "host": "vipmro.com",
+  "url": "http://www.vipmro.com/",
+  "label": "电气"
+ },
+ {
+  "host": "bbs.gongkong.com",
+  "url": "http://www.bbs.gongkong.com/",
+  "label": "电气"
+ },
+ {
+  "host": "bbs.gkong.com",
+  "url": "http://www.bbs.gkong.com/",
+  "label": "电气"
+ },
+ {
+  "host": "ymmfa.com",
+  "url": "http://www.ymmfa.com/index.php",
+  "label": "电气"
+ },
+ {
+  "host": "csdn.net",
+  "url": "http://www.csdn.net/",
+  "label": "电气"
+ },
+ {
+  "host": "isa.org",
+  "url": "http://www.isa.org/",
+  "label": "电气"
+ },
+ {
+  "host": "zkh360.com",
+  "url": "http://www.zkh360.com/",
+  "label": "电气"
+ },
+ {
+  "host": "1688.com",
+  "url": "http://www.1688.com/",
+  "label": "电气"
+ },
+ {
+  "host": "ckmro.com",
+  "url": "http://www.ckmro.com/",
+  "label": "电气"
+ },
+ {
+  "host": "autofg.com",
+  "url": "http://www.autofg.com/",
+  "label": "电气"
+ },
+ {
+  "host": "zhihuiya.com",
+  "url": "https://www.zhihuiya.com/",
+  "label": "知识产权与对外交流"
+ },
+ {
+  "host": "cnipa.gov.cn",
+  "url": "http://www.cnipa.gov.cn/",
+  "label": "知识产权与对外交流"
+ },
+ {
+  "host": "pss-system.cponline.cnipa.gov.cn",
+  "url": "https://pss-system.cponline.cnipa.gov.cn/",
+  "label": "知识产权与对外交流"
+ },
+ {
+  "host": "prci.org",
+  "url": "https://www.prci.org/",
+  "label": "知识产权与对外交流"
+ },
+ {
+  "host": "youqichuyun.com",
+  "url": "https://www.youqichuyun.com/",
+  "label": "管道技术"
+ },
+ {
+  "host": "rosen-group.com",
+  "url": "https://www.rosen-group.com/en",
+  "label": "管道检测新技术有关专业网站"
+ },
+ {
+  "host": "tdwilliamson.com",
+  "url": "https://www.tdwilliamson.com/",
+  "label": "管道检测新技术有关专业网站"
+ },
+ {
+  "host": "ppsa-online.com",
+  "url": "https://www.ppsa-online.com/",
+  "label": "管道检测新技术有关专业网站"
+ },
+ {
+  "host": "pipesurveyinternational.com",
+  "url": "http://www.pipesurveyinternational.com/",
+  "label": "管道检测新技术有关专业网站"
+ },
+ {
+  "host": "onstream-pipeline.com",
+  "url": "https://onstream-pipeline.com/",
+  "label": "管道检测新技术有关专业网站"
+ },
+ {
+  "host": "ndt-global.com",
+  "url": "https://www.ndt-global.com/",
+  "label": "管道检测新技术有关专业网站"
+ }
+]
